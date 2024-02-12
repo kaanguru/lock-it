@@ -12,7 +12,7 @@
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar>
+		<!-- <AppBar>
 			<svelte:fragment slot="lead">
 				<strong class="text-xl uppercase">Skeleton</strong>
 			</svelte:fragment>
@@ -42,7 +42,7 @@
 					GitHub
 				</a>
 			</svelte:fragment>
-		</AppBar>
+		</AppBar> -->
 	</svelte:fragment>
 	<!-- Page Route Content -->
 	<slot />

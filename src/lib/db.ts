@@ -2,37 +2,54 @@ import { z } from 'zod';
 import Dexie, { type Table } from 'dexie';
 
 // Schema and interfaces
-export const _userSchema = z.object({
-	name: z.string().min(2, { message: 'needs longer name' }),
-	email: z.string().email().optional()
+export const _computerSchema = z.object({
+	name: z.string().min(2, { message: 'Computer needs longer name' }),
+	ipAddress: z.string().ip().nullable()
 });
-export interface User {
+export interface Computer {
 	id?: number;
 	name: string;
-	email?: string | null;
+	ipAddress?: string | null;
+	macAddress?: string | null;
+	memory?: number | null;
+	processor?: string | null;
+	motherBoard?: string | null;
+	windowsVersion?: string | null;
+	installationDate?: Date | null;
+	monitor?: string | null;
+	videoAdaptor?: string | null;
+	disk1?: string | null;
+	disk2?: string | null;
+	removeConnectionSoftware?: string | null;
+	remoteConnectionId?: string | null;
+	remoteConnectionPass?: string | null;
+	officeLocationId?: number | null;
+	notes?: string | null;
+	softwareIDs?: number[] | null;
+	printerIDs?: number[] | null;
 }
 
 // Database class
-export class AppDatabase extends Dexie {
-	users!: Table<User>;
+export class LockITDatabase extends Dexie {
+	computers!: Table<Computer>;
 	constructor() {
-		super('AppDatabase');
+		super('LockITDatabase');
 		this.version(1).stores({
-			users: '++id, name , &email'
+			computers: '++id, name',
 		});
-		this.users = this.table('users');
+		this.computers = this.table('computers');
 	}
 }
 // CRLUD operations
-export async function addUser(d: User): Promise<number | void> {
+export async function addComputer(d: Computer): Promise<number | void> {
   try {
-    const id: number = await db.users.add({
+    const id: number = await db.computers.add({
       name: d.name,
-      email: d.email
+      ipAddress: d.ipAddress
     });
     return id;
   } catch (error) {
     console.log(error);
   }
 }
-export const db = new AppDatabase();
+export const db = new LockITDatabase();
