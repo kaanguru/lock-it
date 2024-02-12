@@ -41,13 +41,12 @@ export class LockITDatabase extends Dexie {
 	}
 }
 // CRLUD operations
-export async function addComputer(d: Computer): Promise<number | void> {
+export async function addComputer(d: Computer) {
   try {
-    const id: number = await db.computers.add({
+    await db.computers.add({
       name: d.name,
       ipAddress: d.ipAddress
     });
-    return id;
   } catch (error) {
     console.log(error);
   }

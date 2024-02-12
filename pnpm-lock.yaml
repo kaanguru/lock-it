@@ -80,8 +80,8 @@ devDependencies:
     specifier: ^3.6.4
     version: 3.6.4(postcss@8.4.35)(svelte@4.2.10)
   sveltekit-superforms:
-    specifier: ^2.0.0
-    version: 2.0.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
+    specifier: ^2.1.0
+    version: 2.1.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10)
   tailwindcss:
     specifier: 3.4.1
     version: 3.4.1
@@ -3128,8 +3128,8 @@ packages:
       periscopic: 3.1.0
     dev: true
 
-  /sveltekit-superforms@2.0.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10):
-    resolution: {integrity: sha512-xCFTpvDl8rBSlD3OtMJU3aFy8aKIoRZyxDyaYyuTIE7w97X+gUM89ACcUOd8MOd0ZYxSchZxOLb9zk/l9MruAA==}
+  /sveltekit-superforms@2.1.0(@sveltejs/kit@2.5.0)(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.0)(svelte@4.2.10):
+    resolution: {integrity: sha512-Tl3drSPGklOsIG2wbLSM/DZmir/EZfHcB+rbQd2xIx2byqGHm4HGRA7aP9X5cft1d3CqSFJUPTmuTqLurMipZw==}
     requiresBuild: true
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x

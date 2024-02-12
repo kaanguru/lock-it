@@ -3,8 +3,12 @@
   "version": "1.0.1",
   "private": true,
   "author": "CEM KAAN KOSALI",
-  "description":"SvelteKit starter template with dexie database and SuperForms",
-   "keywords": ["dexie", "superforms","sveltekit"],
+  "description": "SvelteKit starter template with dexie database and SuperForms",
+  "keywords": [
+    "dexie",
+    "superforms",
+    "sveltekit"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "vite dev",
@@ -41,7 +45,7 @@
     "prettier-plugin-svelte": "^3.1.2",
     "svelte": "^4.2.10",
     "svelte-check": "^3.6.4",
-    "sveltekit-superforms": "^2.0.0",
+    "sveltekit-superforms": "^2.1.0",
     "tailwindcss": "3.4.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
