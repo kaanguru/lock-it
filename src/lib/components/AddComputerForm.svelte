@@ -69,16 +69,16 @@
 			{#if $errors.macAddress}<span class="error">{$errors.macAddress}</span>{/if}
 		</label>
 		<label>
-			<span>Memory</span>
+			<span>Memory Ram Gb</span>
 			<input
 				title="Memory"
 				type="number"
-				placeholder="16"
+				placeholder="8"
 				class={$errors.memory ? 'input-error' : undefined}
 				aria-invalid={$errors.memory ? 'true' : undefined}
 				bind:value={$form.memory}
 				{...$constraints.memory}
-			/>
+			/> 
 			{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
 		</label>
 		<label>
@@ -181,10 +181,11 @@
 			{#if $errors.disk2}<span class="error">{$errors.disk2}</span>{/if}
 		</label>
 		<label>
-			<span>removeConnectionSoftware</span>
+			<span>Remote Connection Software</span>
 			<input
 				title="removeConnectionSoftware"
 				type="text"
+				placeholder="Anydesk"
 				class={$errors.removeConnectionSoftware ? 'input-error' : undefined}
 				aria-invalid={$errors.removeConnectionSoftware ? 'true' : undefined}
 				bind:value={$form.removeConnectionSoftware}
@@ -193,7 +194,7 @@
 			{#if $errors.removeConnectionSoftware}<span class="error">{$errors.removeConnectionSoftware}</span>{/if}
 		</label>
 		<label>
-			<span>remoteConnectionId</span>
+			<span>remote Connection Id</span>
 			<input
 				title="remoteConnectionId"
 				type="text"
@@ -216,18 +217,7 @@
 			/>
 			{#if $errors.remoteConnectionPass}<span class="error">{$errors.remoteConnectionPass}</span>{/if}
 		</label>
-		<label>
-			<span>officeLocationId</span>
-			<input
-				title="officeLocationId"
-				type="number"
-				class={$errors.officeLocationId ? 'input-error' : undefined}
-				aria-invalid={$errors.officeLocationId ? 'true' : undefined}
-				bind:value={$form.officeLocationId}
-				{...$constraints.officeLocationId}
-			/>
-			{#if $errors.officeLocationId}<span class="error">{$errors.officeLocationId}</span>{/if}
-		</label>
+
 		<label>
 			<span>notes</span>
 			<textarea 
