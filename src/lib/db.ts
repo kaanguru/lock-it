@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import Dexie, { type Table } from 'dexie';
-const macRegex = /^([0-9A-Fa-f]{2}[.:-]{1})+[0-9A-Fa-f]{2}$/;
+// eslint-disable-next-line no-useless-escape
+const macRegex = /^([0-9A-Fa-f]{2}[\.:\-]{1})+[0-9A-Fa-f]{2}$/;
 // Schema and interfaces
 export const _computerSchema = z.object({
 	id: z.number().optional(),
