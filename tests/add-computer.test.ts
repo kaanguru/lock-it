@@ -14,10 +14,6 @@ test.describe('geçecek testler', () => {
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 	});
-	const fillField = async (page: Page , title: string | null | RegExp, value: string | number | null) => {
-		// @ts-expect-error tittle regex ve null aynı anda olmuyor
-		await page.getByTitle(title).fill(String(value));
-	};
 
 	test('add ✅ all', async ({ page }) => {
 		// Fill known fields with faker data
@@ -34,7 +30,7 @@ test.describe('geçecek testler', () => {
 		];
 
 		for (const [title, value] of titlesAndValues) {
-			value && await fillField(page, title, value);
+			await fillField(page, title, value);
 		}
 	});
 });
@@ -53,3 +49,12 @@ test.describe('Hatalı Giriş Kontrolleri', () => {
 		await expect(page.locator('.error >> text=Invalid')).toBeVisible();
 	});
 });
+
+async function fillField(
+	page: Page,
+	title: string | null | RegExp,
+	value: string | number | null
+) {
+	// @ts-expect-error tittle regex ve null aynı anda olmuyor
+	await page.getByTitle(title).fill(String(value));
+}
