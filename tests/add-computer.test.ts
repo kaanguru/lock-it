@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { generateMock } from '@anatine/zod-mock';
 import { _computerSchema } from '../src/lib/db';
 import { faker } from '@faker-js/faker';
@@ -14,47 +14,28 @@ test.describe('geçecek testler', () => {
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 	});
-	test('add  ✅ name / ✅ ip ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-	});
-	test('add  ✅ name / ✅ ip / ✅ MAC ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-		await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
-	});
-	test('add  ✅ name / ✅ ip / ✅ MAC / ✅ memory ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-		await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
-		if (mockData.memory !== null) {
-			await page.getByTitle('Memory').fill(mockData.memory?.toString());
-		}
-	});
+	const fillField = async (page: Page , title: string | null | RegExp, value: string | number | null) => {
+		// @ts-expect-error tittle regex ve null aynı anda olmuyor
+		await page.getByTitle(title).fill(String(value));
+	};
 
-	test('add  ✅ name / ✅ ip / ✅ MAC / [] memory / ✅ CPU ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-		await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
-		if (mockData.processor !== null) {
-			await page.getByTitle('processor').fill(mockData.processor);
-		}
-	});
-	test('add  ✅ name / ✅ ip / ✅ MAC / [] memory / ✅ CPU/ ✅ Moth ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-		await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
-		if (mockData.processor !== null) {
-			await page.getByTitle('processor').fill(mockData.processor);
-		}
-		if (mockData.motherBoard !== null) {
-			await page.getByTitle('motherBoard').fill(mockData.motherBoard);
-		}
-	});
+	test('add ✅ all', async ({ page }) => {
+		// Fill known fields with faker data
+		await fillField(page, 'IP Address', faker.internet.ipv4());
+		await fillField(page, 'Mac Address', faker.internet.mac());
 
-	test('add  ✅ all ', async ({ page }) => {
-		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
-		await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
-		mockData.processor ? await page.getByTitle('processor').fill(mockData.processor) : null;
-		mockData.monitor ? await page.getByTitle('monitor').fill(mockData.monitor) : null;
-		mockData.videoAdaptor ?	await page.getByTitle('videoAdaptor').fill(mockData.videoAdaptor): null;
-		mockData.disk1 ?	await page.getByTitle('disk1').fill(mockData.disk1): null;
-		mockData.disk2 ?	await page.getByTitle('disk2').fill(mockData.disk2): null;
+		// Conditionally fill fields based on mockData
+		const titlesAndValues = [
+			['processor', mockData.processor],
+			['monitor', mockData.monitor],
+			['videoAdaptor', mockData.videoAdaptor],
+			['disk1', mockData.disk1],
+			['disk2', mockData.disk2]
+		];
+
+		for (const [title, value] of titlesAndValues) {
+			value && await fillField(page, title, value);
+		}
 	});
 });
 test.describe('Hatalı Giriş Kontrolleri', () => {
