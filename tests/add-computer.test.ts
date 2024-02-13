@@ -1,31 +1,57 @@
 import { expect, test } from '@playwright/test';
 import { generateMock } from '@anatine/zod-mock';
 import { _computerSchema } from '../src/lib/db';
-import { randomInt } from 'crypto';
 import { faker } from '@faker-js/faker';
 
-const seed = randomInt(3, 99);
-const mockData = generateMock(_computerSchema, { seed });
-const mockip = faker.internet.ipv4();
+const mockData = generateMock(_computerSchema);
 
-test('add computer with just name', async ({ page }) => {
+test('add ✅ name', async ({ page }) => {
 	await page.goto('/');
 	await page.getByTitle('Name').fill(mockData.name);
-	await page.getByRole('button').click();
+	await page.getByRole('button', { name: 'Add Computer' }).click();
 	await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 });
-test('add computer with correct name and wrong ip address', async ({ page }) => {
+test('add ✅ name / ❌ ip ', async ({ page }) => {
 	await page.goto('/');
 	await page.getByTitle('Name').fill(mockData.name);
 	await page.getByTitle('IP Address').fill('22');
-	await page.getByRole('button').click();
+	await page.getByRole('button', { name: 'Add Computer' }).click();
 	await expect(page.getByRole('paragraph').getByText('Form is invalid!')).toBeVisible();
 	await expect(page.locator('.error >> text=Invalid ip')).toBeVisible();
 });
-test('add computer with correct name and correct ip address', async ({ page }) => {
+test('add  ✅ name / ✅ ip ', async ({ page }) => {
 	await page.goto('/');
 	await page.getByTitle('Name').fill(mockData.name);
-	await page.getByTitle('IP Address').fill(mockip);
-	await page.getByRole('button').click();
+	await page.getByTitle('IP Address').fill(faker.internet.ipv4());
+	await page.getByRole('button', { name: 'Add Computer' }).click();
+	await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
+});
+test('add  ✅ name / ✅ ip / ✅ MAC ', async ({ page }) => {
+	await page.goto('/');
+	await page.getByTitle('Name').fill(mockData.name);
+	await page.getByTitle('IP Address').fill(faker.internet.ipv4());
+	await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
+	await page.getByRole('button', { name: 'Add Computer' }).click();
+	await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
+});
+test('add  ✅ name / ✅ ip / ❌ MAC ', async ({ page }) => {
+	await page.goto('/');
+	await page.getByTitle('Name').fill(mockData.name);
+	await page.getByTitle('IP Address').fill(faker.internet.ipv4());
+	await page.getByPlaceholder('Mac Address').fill('wk-22-22');
+	await page.getByRole('button', { name: 'Add Computer' }).click();
+	await expect(page.getByRole('paragraph').getByText('Form is invalid!')).toBeVisible();
+	await expect(page.locator('.error >> text=Invalid')).toBeVisible();
+});
+
+test('add  ✅ name / ✅ ip / ✅ MAC / ✅ memory ', async ({ page }) => {
+	await page.goto('/');
+	await page.getByTitle('Name').fill(mockData.name);
+	await page.getByTitle('IP Address').fill(faker.internet.ipv4());
+	await page.getByPlaceholder('Mac Address').fill(faker.internet.mac());
+	if (mockData.memory !== null) {
+		await page.getByTitle('Memory').fill(mockData.memory?.toString());
+	}
+	await page.getByRole('button', { name: 'Add Computer' }).click();
 	await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
 });

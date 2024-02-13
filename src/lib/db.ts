@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import Dexie, { type Table } from 'dexie';
-
+const macRegex = /^([0-9A-Fa-f]{2}[.:-]{1})+[0-9A-Fa-f]{2}$/;
 // Schema and interfaces
 export const _computerSchema = z.object({
 	id: z.number().optional(),
 	name: z.string().min(3, { message: 'Computer needs longer name' }),
 	ipAddress: z.string().ip().nullable(),
-	macAddress: z.string().nullable(),
+	macAddress: z.string().regex(macRegex).max(17).nullable(),
 	memory: z.number().nullable(),
 	processor: z.string().nullable(),
 	motherBoard: z.string().nullable(),
@@ -59,14 +59,14 @@ export class LockITDatabase extends Dexie {
 	}
 }
 // CRLUD operations
-export async function addComputer(d: Computer) {
+export async function addComputer(computer: Computer): Promise<void> {
 	try {
-		await db.computers.add({
-			name: d.name,
-			ipAddress: d.ipAddress
-		});
+	  await db.computers.add({
+		...computer, // Leverage object spread for cleaner assignment
+	  });
 	} catch (error) {
-		console.log(error);
+	  console.error('Error adding computer:', error); // Use console.error for errors
+	  throw error; // Re-throw the error for handling at a higher level
 	}
-}
+  }
 export const db = new LockITDatabase();

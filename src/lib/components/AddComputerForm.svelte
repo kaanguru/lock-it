@@ -50,6 +50,32 @@
 			/>
 			{#if $errors.ipAddress}<span class="error">{$errors.ipAddress}</span>{/if}
 		</label>
+		<label>
+			<span>Mac Address</span>
+			<input
+				title="Mac Address"
+				type="text"
+				placeholder="Mac Address"
+				class={$errors.macAddress ? 'input-error' : undefined}
+				aria-invalid={$errors.macAddress ? 'true' : undefined}
+				bind:value={$form.macAddress}
+				{...$constraints.macAddress}
+			/>
+			{#if $errors.macAddress}<span class="error">{$errors.macAddress}</span>{/if}
+		</label>
+		<label>
+			<span>Memory</span>
+			<input
+				title="Memory"
+				type="number"
+				placeholder="16"
+				class={$errors.memory ? 'input-error' : undefined}
+				aria-invalid={$errors.memory ? 'true' : undefined}
+				bind:value={$form.memory}
+				{...$constraints.memory}
+			/>
+			{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
+		</label>
 
 		
 	</p>
