@@ -1,6 +1,6 @@
 {
 	"name": "local-first-template",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"private": true,
 	"author": "CEM KAAN KOSALI",
 	"description": "SvelteKit starter template with dexie database and SuperForms",
