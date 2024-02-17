@@ -6,24 +6,24 @@ const macRegex = /^([0-9A-Fa-f]{2}[\.:\-]{1})+[0-9A-Fa-f]{2}$/;
 export const _computerSchema = z.object({
 	id: z.number().optional(),
 	name: z.string().min(3, { message: 'Computer needs longer name' }),
-	ipAddress: z.string().ip().nullable(),
-	macAddress: z.string().regex(macRegex).max(17).nullable(),
-	memory: z.number().nullable(),
-	processor: z.string().nullable(),
-	motherBoard: z.string().nullable(),
-	windowsVersion: z.string().nullable(),
-	installationDate: z.date().nullable(),
-	monitor: z.string().nullable(),
-	videoAdaptor: z.string().nullable(),
-	disk1: z.string().nullable(),
-	disk2: z.string().nullable(),
-	removeConnectionSoftware: z.string().nullable(),
-	remoteConnectionId: z.string().nullable(),
-	remoteConnectionPass: z.string().nullable(),
-	officeLocationId: z.number().nullable(),
-	notes: z.string().nullable(),
-	softwareIDs: z.array(z.number()).nullable(),
-	printerIDs: z.array(z.number()).nullable()
+	ipAddress: z.string().ip().optional(),
+	macAddress: z.string().regex(macRegex).max(17).optional(),
+	memory: z.number().optional(),
+	processor: z.string().optional(),
+	motherBoard: z.string().optional(),
+	windowsVersion: z.string().optional(),
+	installationDate: z.date().optional(),
+	monitor: z.string().optional(),
+	videoAdaptor: z.string().optional(),
+	disk1: z.string().optional(),
+	disk2: z.string().optional(),
+	removeConnectionSoftware: z.string().optional(),
+	remoteConnectionId: z.string().optional(),
+	remoteConnectionPass: z.string().optional(),
+	officeLocationId: z.number().optional(),
+	notes: z.string().optional(),
+	softwareIDs: z.array(z.number()).optional(),
+	printerIDs: z.array(z.number()).optional()
 });
 export interface Computer {
 	id?: number;
@@ -63,11 +63,11 @@ export class LockITDatabase extends Dexie {
 export async function addComputer(computer: Computer): Promise<void> {
 	try {
 	  await db.computers.add({
-		...computer, // Leverage object spread for cleaner assignment
+		...computer, 
 	  });
 	} catch (error) {
-	  console.error('Error adding computer:', error); // Use console.error for errors
-	  throw error; // Re-throw the error for handling at a higher level
+	  console.error('Error adding computer:', error); 
+	  throw error; 
 	}
   }
 export const db = new LockITDatabase();

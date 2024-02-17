@@ -5,10 +5,10 @@
 	export let data;
 
 	const tableConstruction = {
-		head: ['Name', 'IP Address', 'Mac Address'],
-		body: tableMapperValues(data.computers, ['name', 'ipAddress', 'macAddress']),
+		head: ['Name', 'IP Address'],
+		body: tableMapperValues(data.computers, ['name', 'ipAddress']),
 		meta: tableMapperValues(data.computers, ['id']),
-		foot: ['Total', '', `<code class="code">${data.computers.length}</code>`]
+		foot: ['Total',  `<code class="code">${data.computers.length}</code>`]
 	};
 
 	function navigateToComputer(event: CustomEvent<string[]>) {
@@ -17,8 +17,14 @@
 	}
 </script>
 
-{#if !data.computers}
-	<p>No computers found.</p>
-{:else}
-	<Table source={tableConstruction} interactive={true} on:selected={navigateToComputer} />
-{/if}
+<div class="mx-auto max-w-md flex basis-2 flex-col">
+	<a href="/computers/add" class="btn variant-soft-primary justify-end" 
+	data-sveltekit-preload-data="hover"
+		>➕ 🖥️</a
+	>
+	{#if !data.computers}
+		<p>No computers found.</p>
+	{:else}
+		<Table source={tableConstruction} interactive={true} on:selected={navigateToComputer} />
+	{/if}
+</div>

@@ -1,8 +1,9 @@
 <script lang="ts">
+	import AddComputerForm from '$lib/components/AddComputerForm.svelte';
 </script>
 
 <div class="flex justify-center">
-<h2>Homepage</h2>
+	<AddComputerForm />
 </div>
 
 <style lang="postcss">

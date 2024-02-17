@@ -48,8 +48,8 @@
 	<svelte:fragment slot="sidebarLeft">
 		<nav class="list-nav">
 			<ul>
-				<li><a href="/">Homepage</a></li>
-				<li><a href="/computers">Computers</a></li>
+				<li><a href="/">🏠</a></li>
+				<li><a href="/computers">🖥️</a></li>
 			</ul>
 		</nav>
 		

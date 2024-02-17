@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 	await page.goto('/');
 	await page.getByTitle('Name').fill(mockData.name);
 });
-test.describe('geçecek testler', () => {
+test.describe('Tests expected to pass', () => {
 	test.afterEach('düğmeye bas kontrol et', async ({ page }) => {
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.getByRole('paragraph').getByText(mockData.name)).toBeVisible();
@@ -34,7 +34,7 @@ test.describe('geçecek testler', () => {
 		}
 	});
 });
-test.describe('Hatalı Giriş Kontrolleri', () => {
+test.describe('Checks of wrong enterence', () => {
 	test('add ✅ name / ❌ ip ', async ({ page }) => {
 		await page.getByTitle('IP Address').fill('22');
 		await page.getByRole('button', { name: 'Add Computer' }).click();
