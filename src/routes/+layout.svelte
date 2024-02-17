@@ -44,6 +44,16 @@
 			</svelte:fragment>
 		</AppBar> -->
 	</svelte:fragment>
+	<!-- Left Sidebar Slot -->
+	<svelte:fragment slot="sidebarLeft">
+		<nav class="list-nav">
+			<ul>
+				<li><a href="/">Homepage</a></li>
+				<li><a href="/computers">Computers</a></li>
+			</ul>
+		</nav>
+		
+	</svelte:fragment>
 	<!-- Page Route Content -->
 	<slot />
 </AppShell>

@@ -2,4 +2,8 @@
 	export let data;
 </script>
 
-<p>Computer name: {data.computer.name}</p>
+<div class="flex flex-col"></div>
+<p>Computer name: {data.selectedComputer?.name}</p>
+{#if data.selectedComputer?.ipAddress}
+	<p>Mac Address: {data.selectedComputer?.ipAddress}</p>
+{/if}
