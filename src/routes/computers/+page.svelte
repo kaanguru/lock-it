@@ -12,7 +12,8 @@
 	};
 
 	function navigateToComputer(event: CustomEvent<string[]>) {
-		goto(`/computer/${event.detail[0]}`);
+		const selectedComputerId = event.detail[0];
+		goto(`/computers/computer/${selectedComputerId}`);
 	}
 </script>
 

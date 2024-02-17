@@ -1,18 +1,12 @@
 <script lang="ts">
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
+	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
 	import AddComputerForm from '$lib/components/AddComputerForm.svelte';
 </script>
 
-<div class="containpage">
-	<div class="coln">
-		<AddComputerForm />
-	</div>
+<div class="flex justify-center">
+	<AddComputerForm />
 </div>
 
 <style lang="postcss">
-	.containpage {
-		@apply container h-full mx-auto flex justify-center items-center;
-	}
-	.coln {
-		@apply space-y-5 text-center flex flex-col items-center;
-	}
 </style>

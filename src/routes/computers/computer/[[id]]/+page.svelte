@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex flex-col"></div>
-<p>Computer name: {data.selectedComputer?.name}</p>
+<h1> {data.selectedComputer?.name}</h1>
 {#if data.selectedComputer?.ipAddress}
-	<p>Mac Address: {data.selectedComputer?.ipAddress}</p>
+	<p>Mac Address: {data.selectedComputer?.macAddress}</p>
 {/if}
