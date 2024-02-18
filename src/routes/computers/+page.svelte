@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { _computerSchema } from '$lib/db';
-	import { goto } from '$app/navigation';
 	export let data;
 </script>
 
@@ -17,11 +16,11 @@
 			<label for="ul">Computers</label>
 			<ul>
 				{#each data.computers as computer}
-					<a href={`/computers/computer/${computer.id}`} class="block">
-						<li>
+					<li>
+						<a href={`/computers/computer/${computer.id}`} class="block">
 							<span class="badge bg-primary-500">🖥️</span>
 							<span class="flex-auto">
-								<dt>{computer.name}</dt>
+								<dt class="text-end">{computer.name}</dt>
 								{#if computer.remoteConnectionId}
 									<dd>
 										<iconify-icon icon="material-symbols-light:numbers"
@@ -32,8 +31,8 @@
 									<dd>{computer.ipAddress}</dd>
 								{/if}
 							</span>
-						</li>
-					</a>
+						</a>
+					</li>
 				{/each}
 			</ul>
 		</nav>
