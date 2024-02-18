@@ -28,24 +28,24 @@ export const _computerSchema = z.object({
 export interface Computer {
 	id?: number;
 	name: string;
-	ipAddress?: string | null;
-	macAddress?: string | null;
-	memory?: number | null;
-	processor?: string | null;
-	motherBoard?: string | null;
-	windowsVersion?: string | null;
-	installationDate?: Date | null;
-	monitor?: string | null;
-	videoAdaptor?: string | null;
-	disk1?: string | null;
-	disk2?: string | null;
-	removeConnectionSoftware?: string | null;
-	remoteConnectionId?: string | null;
-	remoteConnectionPass?: string | null;
-	officeLocationId?: number | null;
-	notes?: string | null;
-	softwareIDs?: number[] | null;
-	printerIDs?: number[] | null;
+	ipAddress?: string | undefined;
+	macAddress?: string | undefined;
+	memory?: number | undefined;
+	processor?: string | undefined;
+	motherBoard?: string | undefined;
+	windowsVersion?: string | undefined;
+	installationDate?: Date | undefined;
+	monitor?: string | undefined;
+	videoAdaptor?: string | undefined;
+	disk1?: string | undefined;
+	disk2?: string | undefined;
+	removeConnectionSoftware?: string | undefined;
+	remoteConnectionId?: string | undefined;
+	remoteConnectionPass?: string | undefined;
+	officeLocationId?: number | undefined;
+	notes?: string | undefined;
+	softwareIDs?: number[] | undefined;
+	printerIDs?: number[] | undefined;
 }
 
 // Database class
@@ -62,12 +62,12 @@ export class LockITDatabase extends Dexie {
 // CRLUD operations
 export async function addComputer(computer: Computer): Promise<void> {
 	try {
-	  await db.computers.add({
-		...computer, 
-	  });
+		await db.computers.add({
+			...computer
+		});
 	} catch (error) {
-	  console.error('Error adding computer:', error); 
-	  throw error; 
+		console.error('Error adding computer:', error);
+		throw error;
 	}
-  }
+}
 export const db = new LockITDatabase();
