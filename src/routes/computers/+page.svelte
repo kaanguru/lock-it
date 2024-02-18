@@ -2,7 +2,7 @@
 	import { _computerSchema } from '$lib/db';
 	import { Table, tableMapperValues } from '@skeletonlabs/skeleton';
 	import { goto } from '$app/navigation';
-	let { data } = $props();
+	export let data;
 
 	const tableConstruction = {
 		head: ['Name', 'IP Address'],
