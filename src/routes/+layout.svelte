@@ -46,11 +46,11 @@
 	</svelte:fragment>
 	<!-- Left Sidebar Slot -->
 	<svelte:fragment slot="sidebarLeft">
-		<iconify-icon icon="mdi:home"></iconify-icon>
+		<!-- <iconify-icon icon="mdi:home"></iconify-icon> -->
 		<nav class="list-nav">
 			<ul>
 				<li><a href="/">🏠</a></li>
-				<li><a href="/computers">🖥️</a></li>
+				<li><a href="/computers">🖥️ <br /> 🖥️ <br /> 🖥️</a></li>
 			</ul>
 		</nav>
 	</svelte:fragment>
