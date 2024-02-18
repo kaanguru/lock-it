@@ -4,6 +4,5 @@ export const load = async ({ params }) => {
 	if (!params.id) throw error(404, 'ID not provided.');
 	const selectedComputer = await db.computers.where('id').equals(parseInt(params.id)).first();
 	if (!selectedComputer) throw error(404, 'Computer not found. ' + params.id);
-
 	return { selectedComputer };
 };
