@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 const mockData = generateMock(_computerSchema);
 
 test.beforeEach(async ({ page }) => {
-	await page.goto('/');
+	await page.goto('/computers/add');
 	await page.getByTitle('Name').fill(mockData.name);
 });
 test.describe('Tests expected to pass', () => {
@@ -50,11 +50,7 @@ test.describe('Checks of wrong enterence', () => {
 	});
 });
 
-async function fillField(
-	page: Page,
-	title: string | null | RegExp,
-	value: string | number | null
-) {
+async function fillField(page: Page, title: string | null | RegExp, value: string | number | null) {
 	// @ts-expect-error tittle regex ve null aynı anda olmuyor
 	await page.getByTitle(title).fill(String(value));
 }
