@@ -60,6 +60,7 @@
 		"@anatine/zod-mock": "^3.13.3",
 		"@faker-js/faker": "^8.4.1",
 		"@floating-ui/dom": "1.6.3",
+		"@vincjo/datatables": "^1.14.5",
 		"dexie": "4.0.1-beta.9",
 		"iconify-icon": "^2.0.0"
 	}
