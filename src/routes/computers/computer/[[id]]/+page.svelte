@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { data } = $props();
+	export let  data ;
 </script>
 
 <div class="flex max-w-md justify-center basis-2 "></div>
