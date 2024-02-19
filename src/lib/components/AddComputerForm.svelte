@@ -21,11 +21,13 @@
 			onUpdate: addComputerAndSetMessage
 		}
 	);
-	/* let customField = { label: '', value: '' };
+	/* Option to add Custom Field
+	 let customField = { label: '', value: '' };
 	function addCustomField() {
 		let customField = { label: '', value: '' };
 		console.log('ℹ  ~ addCustomField ~ customField:', customField);
-	} */
+	} 
+	*/
 	const installationDate = dateProxy(form, 'installationDate', {
 		format: 'date',
 		empty: 'undefined'

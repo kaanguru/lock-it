@@ -23,8 +23,21 @@ export const _computerSchema = z.object({
 	officeLocationId: z.number().optional(),
 	notes: z.string().optional(),
 	softwareIDs: z.array(z.number()).optional(),
-	printerIDs: z.array(z.number()).optional()
+	printerIDs: z.array(z.number()).optional(),
+	customFields: z
+		.array(
+			z.object({
+				title: z.string(),
+				value: z.string()
+			})
+		)
+		.optional()
 });
+
+interface CustomField {
+	title: string;
+	value: string;
+}
 export interface Computer {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
@@ -48,6 +61,7 @@ export interface Computer {
 	notes?: string | undefined;
 	softwareIDs?: number[] | undefined;
 	printerIDs?: number[] | undefined;
+	customFields?: CustomField[];
 }
 
 // Database class
