@@ -10,10 +10,9 @@
 	import Pagination from '$lib/components/table/Pagination.svelte';
 
 	export let data;
-	const tableData = data.computers;
 	const handler = new DataHandler(data.computers, { rowsPerPage: 10 });
 	const rows = handler.getRows();
-	function navigateToComputer(i: number) {
+	function navigateToComputer(i: string | number) {
 		goto(`/computers/computer/${i.toString()}`);
 		return null;
 	}

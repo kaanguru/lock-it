@@ -8,11 +8,15 @@ body {
 	@apply h-full overflow-hidden;
 }
 
-/* rocket theme */
 @font-face {
-	font-family: 'Source Sans 3 ExtraLight';
+	font-family: 'SourceSans3ExtraLight';
 	src: url('/fonts/SourceSans3.ttf');
-	font-display: swap;
+	/* font-display: swap; */
+}
+@font-face {
+	font-family: 'Iceland';
+	src: url('/fonts/Iceland-Regular.ttf');
+	/* font-display: swap; */
 }
 input {
 	@apply input;
@@ -30,7 +34,7 @@ label {
 	@apply label my-3;
 }
 button {
-	@apply btn variant-filled-secondary my-3;
+	@apply btn variant-filled-primary my-3;
 }
 .error {
 	@apply bg-error-800 text-error-100 m-2;

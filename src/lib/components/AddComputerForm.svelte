@@ -55,9 +55,11 @@
 				/>
 				{#if $errors.name}<span class="error">{$errors.name}</span>{/if}
 			</label>
-			<Accordion>
+			<Accordion class="btn-group-vertical variant-ghost-primary">
 				<AccordionItem>
-					<svelte:fragment slot="summary">Remote Connection Software</svelte:fragment>
+					<svelte:fragment slot="summary"
+						><iconify-icon icon="lucide:cable"></iconify-icon> Remote Connection</svelte:fragment
+					>
 					<svelte:fragment slot="content">
 						<input
 							title="removeConnectionSoftware"
@@ -108,7 +110,9 @@
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary">Network</svelte:fragment>
+					<svelte:fragment slot="summary"
+						><iconify-icon icon="lucide:network"></iconify-icon> Network</svelte:fragment
+					>
 					<svelte:fragment slot="content">
 						<label>
 							<span>IP Address</span>
@@ -139,7 +143,9 @@
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary">Hardware</svelte:fragment>
+					<svelte:fragment slot="summary"
+						><iconify-icon icon="lucide:cpu"></iconify-icon> Hardware</svelte:fragment
+					>
 					<svelte:fragment slot="content">
 						<label>
 							<span>Memory Ram Gb</span>
@@ -231,7 +237,9 @@
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary">Software</svelte:fragment>
+					<svelte:fragment slot="summary"
+						><iconify-icon icon="lucide:app-window"></iconify-icon> Software</svelte:fragment
+					>
 					<svelte:fragment slot="content">
 						<label>
 							<span>Windows Version</span>
@@ -262,17 +270,7 @@
 						</label>
 					</svelte:fragment>
 				</AccordionItem>
-				<label>
-					<span>notes</span>
-					<textarea
-						title="notes"
-						class={$errors.notes ? 'input-error' : undefined}
-						aria-invalid={$errors.notes ? 'true' : undefined}
-						bind:value={$form.notes}
-						{...$constraints.notes}
-					/>
-					{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
-				</label>
+
 				<!-- <AccordionItem>
 					<svelte:fragment slot="lead">+</svelte:fragment>
 					<svelte:fragment slot="summary">Add Custom Field</svelte:fragment>
@@ -286,7 +284,21 @@
 				</AccordionItem> -->
 			</Accordion>
 		</p>
-		<button>Add Computer</button>
+		<label>
+			<iconify-icon icon="lucide:notebook-pen"> </iconify-icon><span class="text-end">notes</span>
+			<textarea
+				title="notes"
+				class={$errors.notes ? 'input-error' : undefined}
+				aria-invalid={$errors.notes ? 'true' : undefined}
+				bind:value={$form.notes}
+				{...$constraints.notes}
+			/>
+			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
+		</label>
+		<button
+			><iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"
+			></iconify-icon> Add Computer</button
+		>
 		{#if $message}<p>{$message}</p>{/if}
 	</form>
 </div>

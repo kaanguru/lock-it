@@ -26,7 +26,9 @@ export const _computerSchema = z.object({
 	printerIDs: z.array(z.number()).optional()
 });
 export interface Computer {
-	id?: number;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[key: string]: any;
+	id?: number | string;
 	name: string;
 	ipAddress?: string | undefined;
 	macAddress?: string | undefined;
