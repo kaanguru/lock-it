@@ -1,13 +1,24 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, type ModalComponent } from '@skeletonlabs/skeleton';
 	import 'iconify-icon';
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import { initializeStores } from '@skeletonlabs/skeleton';
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
+	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
+
+	const modalRegistry: Record<string, ModalComponent> = {
+		EditComputerForm: { ref: EditComputerForm }
+	};
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	initializeStores();
 </script>
 
+<Modal components={modalRegistry} />
+
+<!-- <AppShell>...</AppShell> -->
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header">

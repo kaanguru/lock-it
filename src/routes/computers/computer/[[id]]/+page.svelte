@@ -1,4 +1,13 @@
 <script lang="ts">
+	import { getModalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
+
+	const modalStore = getModalStore();
+
+	const modal: ModalSettings = {
+		type: 'component',
+		component: 'EditComputerForm'
+	};
+
 	export let data;
 </script>
 
@@ -17,7 +26,10 @@
 				{/each}
 			</article>
 		</div>
-		<footer class="card-footer">🖥️</footer>
+		<footer class="card-footer">
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<iconify-icon icon="lucide:edit" on:click={() => modalStore.trigger(modal)}></iconify-icon>
+		</footer>
 	</div>
 </div>
 
