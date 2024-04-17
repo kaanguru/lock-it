@@ -27,8 +27,9 @@
 			</article>
 		</div>
 		<footer class="card-footer">
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<iconify-icon icon="lucide:edit" on:click={() => modalStore.trigger(modal)}></iconify-icon>
+			<button type="button" class="icon-button" on:click={() => modalStore.trigger(modal)}>
+				<iconify-icon icon="lucide:edit"></iconify-icon>
+			</button>
 		</footer>
 	</div>
 </div>
