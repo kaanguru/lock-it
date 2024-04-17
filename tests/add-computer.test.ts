@@ -8,6 +8,7 @@ const mockData = generateMock(_computerSchema);
 test.beforeEach(async ({ page }) => {
 	await page.goto('/computers/add');
 	await page.getByTitle('Name').fill(mockData.name);
+	
 });
 test.describe('Tests expected to pass', () => {
 	test.afterEach('düğmeye bas kontrol et', async ({ page }) => {
@@ -50,7 +51,6 @@ test.describe('Checks of wrong enterence', () => {
 	});
 });
 
-async function fillField(page: Page, title: string | null | RegExp, value: string | number | null) {
-	// @ts-expect-error tittle regex ve null aynı anda olmuyor
+async function fillField(page: Page, title, value: string | number | null) {
 	await page.getByTitle(title).fill(String(value));
 }
