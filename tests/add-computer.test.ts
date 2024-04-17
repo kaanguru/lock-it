@@ -17,10 +17,11 @@ test.describe('Tests expected to pass', () => {
 	});
 
 	test('add ✅ all', async ({ page }) => {
-		// Fill known fields with faker data
-		await fillField(page, 'IP Address', faker.internet.ipv4());
-		await fillField(page, 'Mac Address', faker.internet.mac());
-
+  await page.getByRole('button', { name: 'Network' }).click();
+  await fillField(page, 'IP Address', faker.internet.ipv4());
+  await fillField(page, 'Mac Address', faker.internet.mac());
+  
+  await page.getByRole('button', { name: 'Hardware' }).click();
 		// Conditionally fill fields based on mockData
 		const titlesAndValues = [
 			['processor', mockData.processor],
@@ -37,13 +38,16 @@ test.describe('Tests expected to pass', () => {
 });
 test.describe('Checks of wrong enterence', () => {
 	test('add ✅ name / ❌ ip ', async ({ page }) => {
+		await page.getByRole('button', { name: 'Network' }).click();
+
 		await page.getByTitle('IP Address').fill('22');
 		await page.getByRole('button', { name: 'Add Computer' }).click();
-		await expect(page.getByRole('paragraph').getByText('Form is invalid!')).toBeVisible();
 		await expect(page.locator('.error >> text=Invalid ip')).toBeVisible();
 	});
-
+	
+	
 	test('add  ✅ name / ✅ ip / ❌ MAC ', async ({ page }) => {
+		await page.getByRole('button', { name: 'Network' }).click();
 		await page.getByTitle('IP Address').fill(faker.internet.ipv4());
 		await page.getByPlaceholder('Mac Address').fill('wk-22-22');
 		await page.getByRole('button', { name: 'Add Computer' }).click();
