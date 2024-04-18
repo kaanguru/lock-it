@@ -6,7 +6,7 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { initializeStores } from '@skeletonlabs/skeleton';
-	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
+	import { Modal } from '@skeletonlabs/skeleton';
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
 
 	const modalRegistry: Record<string, ModalComponent> = {
@@ -61,7 +61,14 @@
 		<nav class="list-nav">
 			<ul>
 				<li><a href="/">🏠</a></li>
-				<li><a href="/computers">🖥️ <br /> 🖥️ <br /> 🖥️</a></li>
+				<li>
+					<a href="/computers">
+						🖥️ <br />
+						🖥️
+						<br />
+						🖥️
+					</a>
+				</li>
 			</ul>
 		</nav>
 	</svelte:fragment>

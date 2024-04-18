@@ -13,14 +13,12 @@
 			setMessage(form, 'Form is invalid!');
 		}
 	};
-	const { form, errors, constraints, enhance, message } = superForm(
-		defaults(zod(_computerSchema)),
-		{
-			SPA: true,
-			validators: zod(_computerSchema),
-			onUpdate: addComputerAndSetMessage
-		}
-	);
+	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
+		id: 'add-form',
+		SPA: true,
+		validators: zod(_computerSchema),
+		onUpdate: addComputerAndSetMessage
+	});
 	/* Option to add Custom Field
 	 let customField = { label: '', value: '' };
 	function addCustomField() {
@@ -59,20 +57,15 @@
 			</label>
 			<Accordion class="btn-group-vertical variant-ghost-primary">
 				<AccordionItem>
-					<svelte:fragment slot="summary"
-						><iconify-icon icon="lucide:cable"></iconify-icon> Remote Connection</svelte:fragment
-					>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:cable"></iconify-icon>
+						Remote Connection
+					</svelte:fragment>
 					<svelte:fragment slot="content">
-						<input
-							title="removeConnectionSoftware"
-							type="hidden"
-							bind:value={$form.removeConnectionSoftware}
-						/>
+						<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
 						{#each remoteConnectionSoftwares as sof}
 							<button
-								class="chip {selectedRemoteConnectionSoftware === sof
-									? 'variant-filled'
-									: 'variant-soft'}"
+								class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
 								on:click|preventDefault={() => {
 									updateSelectedRemoteConnectionSoftware(sof);
 								}}
@@ -92,8 +85,7 @@
 								bind:value={$form.remoteConnectionId}
 								{...$constraints.remoteConnectionId}
 							/>
-							{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span
-								>{/if}
+							{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span>{/if}
 						</label>
 						<label>
 							<span>remoteConnectionPass</span>
@@ -105,16 +97,15 @@
 								bind:value={$form.remoteConnectionPass}
 								{...$constraints.remoteConnectionPass}
 							/>
-							{#if $errors.remoteConnectionPass}<span class="error"
-									>{$errors.remoteConnectionPass}</span
-								>{/if}
+							{#if $errors.remoteConnectionPass}<span class="error">{$errors.remoteConnectionPass}</span>{/if}
 						</label>
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary"
-						><iconify-icon icon="lucide:network"></iconify-icon> Network</svelte:fragment
-					>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:network"></iconify-icon>
+						Network
+					</svelte:fragment>
 					<svelte:fragment slot="content">
 						<label>
 							<span>IP Address</span>
@@ -145,9 +136,10 @@
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary"
-						><iconify-icon icon="lucide:cpu"></iconify-icon> Hardware</svelte:fragment
-					>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:cpu"></iconify-icon>
+						Hardware
+					</svelte:fragment>
 					<svelte:fragment slot="content">
 						<label>
 							<span>Memory Ram Gb</span>
@@ -239,9 +231,10 @@
 					</svelte:fragment>
 				</AccordionItem>
 				<AccordionItem>
-					<svelte:fragment slot="summary"
-						><iconify-icon icon="lucide:app-window"></iconify-icon> Software</svelte:fragment
-					>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:app-window"></iconify-icon>
+						Software
+					</svelte:fragment>
 					<svelte:fragment slot="content">
 						<label>
 							<span>Windows Version</span>
@@ -267,8 +260,7 @@
 								bind:value={$installationDate}
 								{...$constraints.installationDate}
 							/>
-							{#if $errors.installationDate}<span class="error">{$errors.installationDate}</span
-								>{/if}
+							{#if $errors.installationDate}<span class="error">{$errors.installationDate}</span>{/if}
 						</label>
 					</svelte:fragment>
 				</AccordionItem>
@@ -287,7 +279,8 @@
 			</Accordion>
 		</p>
 		<label>
-			<iconify-icon icon="lucide:notebook-pen"> </iconify-icon><span class="text-end">notes</span>
+			<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
+			<span class="text-end">notes</span>
 			<textarea
 				title="notes"
 				class={$errors.notes ? 'input-error' : undefined}
@@ -297,10 +290,10 @@
 			/>
 			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
 		</label>
-		<button
-			><iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"
-			></iconify-icon> Add Computer</button
-		>
+		<button>
+			<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
+			Add Computer
+		</button>
 		{#if $message}<p>{$message}</p>{/if}
 	</form>
 </div>

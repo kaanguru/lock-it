@@ -1,24 +1,28 @@
-<!-- EditComputerForm.svelte -->
 <script lang="ts">
 	import { setMessage, superForm, defaults, dateProxy } from 'sveltekit-superforms/client';
 	import { _computerSchema, editComputer } from '$lib/db';
+	import { selectedComputerID } from '$lib/store';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-	export let selectedComputerId: number | string;
-
-	const handleSubmit = async ({ form }: { form: any }): Promise<void> => {
+	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
+		id: 'edit-form',
+		SPA: true,
+		validators: zod(_computerSchema),
+		onUpdate: handleSubmit
+	});
+	let id;
+	selectedComputerID.subscribe((v) => (id = v));
+	async function handleSubmit({ form }: { form: any }) {
 		if (form.valid) {
+			form.data.id = id;
 			await editComputer(form.data);
 			setMessage(form, `Computer: ${form.data.name} has been added!`);
 		} else {
 			setMessage(form, 'Form is invalid!');
 		}
-	};
-	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
-		SPA: true,
-		validators: zod(_computerSchema),
-		onUpdate: handleSubmit
-	});
+
+		console.log('ℹ  ~ handleSubmit ~ form id:', id);
+	}
 	const installationDate = dateProxy(form, 'installationDate', {
 		format: 'date',
 		empty: 'undefined'
@@ -31,7 +35,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form method="POST" use:enhance>
 	<p>
 		<label>
 			<span>Name</span>

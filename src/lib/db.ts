@@ -103,4 +103,5 @@ export async function editComputer(computer: Computer): Promise<void> {
 		throw error; // Rethrow the error to be handled by the caller
 	}
 }
+
 export const db = new LockITDatabase();
