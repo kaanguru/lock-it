@@ -86,4 +86,21 @@ export async function addComputer(computer: Computer): Promise<void> {
 		throw error;
 	}
 }
+
+export async function editComputer(computer: Computer): Promise<void> {
+	try {
+		// Check if the computer object has an 'id' field
+		if (!computer.id) {
+			throw new Error('Computer ID is required to edit a computer.');
+		}
+
+		// Update the computer record in the database
+		await db.computers.update(computer.id, {
+			...computer
+		});
+	} catch (error) {
+		console.error('Error updating computer:', error);
+		throw error; // Rethrow the error to be handled by the caller
+	}
+}
 export const db = new LockITDatabase();

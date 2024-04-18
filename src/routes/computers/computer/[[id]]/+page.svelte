@@ -2,13 +2,15 @@
 	import { getModalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
 
 	const modalStore = getModalStore();
+	export let data;
 
 	const modal: ModalSettings = {
 		type: 'component',
-		component: 'EditComputerForm'
+		component: 'EditComputerForm',
+		props: {
+			selectedComputerId: data.selectedComputer?.id
+		}
 	};
-
-	export let data;
 </script>
 
 <div class="flex justify-center">
