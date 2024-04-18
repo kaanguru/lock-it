@@ -1,12 +1,7 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
 	root: true,
-	extends: [
-		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:svelte/recommended',
-		'prettier'
-	],
+	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:svelte/recommended', 'prettier'],
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
 	parserOptions: {
@@ -16,7 +11,7 @@ module.exports = {
 	},
 	env: {
 		browser: true,
-		es2017: true,
+		es2022: true,
 		node: true
 	},
 	overrides: [
