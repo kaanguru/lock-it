@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { setMessage, superForm, defaults, dateProxy } from 'sveltekit-superforms/client';
-	import { _computerSchema, editComputer } from '$lib/db';
-	import { selectedComputerID } from '$lib/store';
+	import { _computerSchema, editComputer, type Computer } from '$lib/db';
+	import { selectedComputer } from '$lib/store';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
@@ -10,18 +11,21 @@
 		validators: zod(_computerSchema),
 		onUpdate: handleSubmit
 	});
-	let id: number | string;
-	selectedComputerID.subscribe((v) => (id = v));
+	let computerGettingEdited;
+	selectedComputer.subscribe((sc) => (computerGettingEdited = sc));
+	onMount(() => {
+		prefillForm(computerGettingEdited);
+	});
 	async function handleSubmit({ form }: { form: any }) {
 		if (form.valid) {
-			form.data.id = id;
+			form.data.id = computerGettingEdited?.id;
 			await editComputer(form.data);
 			setMessage(form, `Computer: ${form.data.name} has been updated!`);
 		} else {
 			setMessage(form, 'Form is invalid!');
 		}
 
-		console.log('ℹ  ~ handleSubmit ~ form id:', id);
+		console.log('ℹ  ~ handleSubmit ~ form id:', computerGettingEdited);
 	}
 	const installationDate = dateProxy(form, 'installationDate', {
 		format: 'date',
@@ -33,6 +37,13 @@
 		selectedRemoteConnectionSoftware = selSof;
 		$form.removeConnectionSoftware = selSof;
 	}
+	function prefillForm(comptr: Computer) {
+		for (const key in comptr) {
+			if (comptr.hasOwnProperty(key)) {
+				$form[key] = comptr[key];
+			}
+		}
+	}
 </script>
 
 <form method="POST" use:enhance>
@@ -42,7 +53,7 @@
 			<input
 				title="Name"
 				type="text"
-				placeholder="Name"
+				placeholder={computerGettingEdited?.name}
 				class={$errors.name ? 'input-error' : undefined}
 				aria-invalid={$errors.name ? 'true' : undefined}
 				bind:value={$form.name}

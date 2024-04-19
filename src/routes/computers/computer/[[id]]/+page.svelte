@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { getModalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
-	import { selectedComputerID } from '$lib/store';
+	import { selectedComputer } from '$lib/store';
+
 	const modalStore = getModalStore();
 	export let data;
-	selectedComputerID.set(data.selectedComputer?.id);
+	selectedComputer.set(data.selectedComputer);
 	const modal: ModalSettings = {
 		type: 'component',
 		component: 'EditComputerForm'
