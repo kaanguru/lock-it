@@ -6,7 +6,6 @@
 
 	const addComputerAndSetMessage = async ({ form }: { form: any }): Promise<void> => {
 		if (form.valid) {
-			// addCustomField();
 			await addComputer(form.data);
 			setMessage(form, `Computer: ${form.data.name} has been added!`);
 		} else {
@@ -19,13 +18,7 @@
 		validators: zod(_computerSchema),
 		onUpdate: addComputerAndSetMessage
 	});
-	/* Option to add Custom Field
-	 let customField = { label: '', value: '' };
-	function addCustomField() {
-		let customField = { label: '', value: '' };
-		console.log('ℹ  ~ addCustomField ~ customField:', customField);
-	} 
-	*/
+
 	const installationDate = dateProxy(form, 'installationDate', {
 		format: 'date',
 		empty: 'undefined'
@@ -264,18 +257,6 @@
 						</label>
 					</svelte:fragment>
 				</AccordionItem>
-
-				<!-- <AccordionItem>
-					<svelte:fragment slot="lead">+</svelte:fragment>
-					<svelte:fragment slot="summary">Add Custom Field</svelte:fragment>
-					<svelte:fragment slot="content">
-						<label>
-							<span>{customField.label}</span>
-							<input type="text" bind:value={customField.label} placeholder="Custom Label" />
-							<input type="text" bind:value={customField.value} placeholder="Your Value" />
-						</label>
-					</svelte:fragment>
-				</AccordionItem> -->
 			</Accordion>
 		</p>
 		<label>

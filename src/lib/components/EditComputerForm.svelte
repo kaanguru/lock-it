@@ -10,13 +10,13 @@
 		validators: zod(_computerSchema),
 		onUpdate: handleSubmit
 	});
-	let id;
+	let id: number | string;
 	selectedComputerID.subscribe((v) => (id = v));
 	async function handleSubmit({ form }: { form: any }) {
 		if (form.valid) {
 			form.data.id = id;
 			await editComputer(form.data);
-			setMessage(form, `Computer: ${form.data.name} has been added!`);
+			setMessage(form, `Computer: ${form.data.name} has been updated!`);
 		} else {
 			setMessage(form, 'Form is invalid!');
 		}
@@ -259,18 +259,6 @@
 					</label>
 				</svelte:fragment>
 			</AccordionItem>
-
-			<!-- <AccordionItem>
-				<svelte:fragment slot="lead">+</svelte:fragment>
-				<svelte:fragment slot="summary">Add Custom Field</svelte:fragment>
-				<svelte:fragment slot="content">
-					<label>
-						<span>{customField.label}</span>
-						<input type="text" bind:value={customField.label} placeholder="Custom Label" />
-						<input type="text" bind:value={customField.value} placeholder="Your Value" />
-					</label>
-				</svelte:fragment>
-			</AccordionItem> -->
 		</Accordion>
 	</p>
 	<label>
