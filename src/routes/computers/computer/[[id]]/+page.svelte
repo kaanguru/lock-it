@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { getModalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { selectedComputer } from '$lib/store';
+	import { deleteComputer } from '$lib/db';
+	import { goto } from '$app/navigation';
 
 	const modalStore = getModalStore();
 	export let data;
@@ -9,6 +11,11 @@
 		type: 'component',
 		component: 'EditComputerForm'
 	};
+
+	async function deleteAndTurntoList() {
+		await deleteComputer(data.selectedComputer.id);
+		goto(`/computers/`);
+	}
 </script>
 
 <div class="flex justify-center">
@@ -29,6 +36,9 @@
 		<footer class="card-footer">
 			<button type="button" class="icon-button" on:click={() => modalStore.trigger(modal)}>
 				<iconify-icon icon="lucide:edit"></iconify-icon>
+			</button>
+			<button type="button" class="icon-button" on:click={() => deleteAndTurntoList()}>
+				<iconify-icon icon="lucide:trash"></iconify-icon>
 			</button>
 		</footer>
 	</div>

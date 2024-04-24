@@ -90,5 +90,13 @@ export async function editComputer(computer: Computer): Promise<void> {
 		throw error; // Rethrow the error to be handled by the caller
 	}
 }
+export async function deleteComputer(id: number | string): Promise<void> {
+	try {
+		await db.computers.delete(id);
+	} catch (error) {
+		console.error('Error deleting computer:', error);
+		throw error; // Rethrow the error to be handled by the caller
+	}
+}
 
 export const db = new LockITDatabase();
