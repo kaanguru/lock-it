@@ -275,13 +275,17 @@
 	<label>
 		<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
 		<span class="text-end">notes</span>
+		<picture>
+			<source media="(min-width: )" srcset="" />
+			<img src="" alt="" />
+		</picture>
 		<textarea
 			title="notes"
 			class={$errors.notes ? 'input-error' : undefined}
 			aria-invalid={$errors.notes ? 'true' : undefined}
 			bind:value={$form.notes}
 			{...$constraints.notes}
-		/>
+		></textarea>
 		{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
 	</label>
 	<button>
