@@ -27,7 +27,7 @@
 >
 	<TabAnchor href="/" selected={$page.url.pathname === '/'} title="Home">
 		<svelte:fragment slot="lead">
-			<img src="/icons/favicon-32x32.png" alt="lockit" class="ps-1 pb-2" />
+			<img src="/img/lockit-logo.png" alt="lockit" class="h-10 ps-1 pb-2" />
 		</svelte:fragment>
 		<span class="text-xs">v{version}</span>
 	</TabAnchor>
