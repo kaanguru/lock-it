@@ -5,6 +5,8 @@
 	import { initializeStores, storePopup, Modal, TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
 	import { page } from '$app/stores';
+	import { version, dev } from '$app/environment';
+	console.log(`Client version: ${version}`);
 	const modalRegistry = {
 		EditComputerForm: { ref: EditComputerForm }
 	};
@@ -39,3 +41,4 @@
 
 <!-- Page Route Content -->
 <slot />
+{version}

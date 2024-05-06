@@ -7,7 +7,10 @@ const config = {
 		inspector: true
 	},
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		version: {
+			name: process.env.npm_package_version
+		}
 	}
 };
 export default config;
