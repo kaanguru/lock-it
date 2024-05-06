@@ -5,7 +5,7 @@
 	import { initializeStores, storePopup, Modal, TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
 	import { page } from '$app/stores';
-	import { version, dev } from '$app/environment';
+	import { version } from '$app/environment';
 	console.log(`Client version: ${version}`);
 	const modalRegistry = {
 		EditComputerForm: { ref: EditComputerForm }
@@ -29,7 +29,7 @@
 		<svelte:fragment slot="lead">
 			<img src="/icons/favicon-32x32.png" alt="lockit" class="ps-1 pb-2" />
 		</svelte:fragment>
-		<span>LockIT</span>
+		<span class="text-xs">v{version}</span>
 	</TabAnchor>
 	<TabAnchor href="/computers" title="Computers" selected={$page.url.pathname === '/computers'}>
 		<svelte:fragment slot="lead">
@@ -41,4 +41,3 @@
 
 <!-- Page Route Content -->
 <slot />
-{version}
