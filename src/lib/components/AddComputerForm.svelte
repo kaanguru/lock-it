@@ -32,7 +32,9 @@
 </script>
 
 <div class="flex flex-col">
-	<h2>New Computer 🖥️</h2>
+	<h2>
+		New Computer <iconify-icon icon="line-md:computer"></iconify-icon>
+	</h2>
 	<form method="POST" use:enhance>
 		<p>
 			<label>
@@ -268,7 +270,7 @@
 				aria-invalid={$errors.notes ? 'true' : undefined}
 				bind:value={$form.notes}
 				{...$constraints.notes}
-			/>
+			></textarea>
 			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
 		</label>
 		<button>

@@ -5,6 +5,3 @@
 <div class="flex justify-center">
 	<AddComputerForm />
 </div>
-
-<style lang="postcss">
-</style>

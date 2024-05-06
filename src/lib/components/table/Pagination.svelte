@@ -7,7 +7,7 @@
 </script>
 
 <!-- Desktop buttons -->
-<section class="btn-group variant-ghost-surface [&>*+*]:border-surface-500 h-10 hidden lg:block">
+<section class="btn-group variant-ghost-surface [&>*+*]:border-surface-500 px-2 lg:block">
 	<button
 		type="button"
 		class="hover:variant-soft-primary"

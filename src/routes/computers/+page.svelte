@@ -18,12 +18,14 @@
 	}
 </script>
 
-<div class="mx-auto max-w-md flex basis-2 flex-col">
-	<a
-		href="/computers/add"
-		class="btn variant-soft-primary justify-end"
-		data-sveltekit-preload-data="hover">➕ 🖥️</a
-	>
+<div class="mx-auto max-w-md flex flex-col">
+	<a href="/computers/add" class="btn variant-soft-primary mb-6" data-sveltekit-preload-data="hover">
+		<span>Add New Computer</span>
+		<span class="ps-2">
+			<iconify-icon icon="tabler:device-imac-plus" height="2em"></iconify-icon>
+		</span>
+	</a>
+	<h2>Computers</h2>
 
 	<div class=" overflow-x-auto space-y-2">
 		<header class="flex justify-between gap-4">
@@ -35,12 +37,10 @@
 				<tr>
 					<ThSort {handler} orderBy="name">Name</ThSort>
 					<ThSort {handler} orderBy="ipAddress">Ip Address</ThSort>
-					<ThSort {handler} orderBy="macAddress">Mac Address</ThSort>
 				</tr>
 				<tr>
 					<ThFilter {handler} filterBy="name" />
 					<ThFilter {handler} filterBy="ipAddress" />
-					<ThFilter {handler} filterBy="macAddress" />
 				</tr>
 			</thead>
 			<tbody>
@@ -48,7 +48,6 @@
 					<tr on:click={row.id ? navigateToComputer(row.id) : undefined}>
 						<td>{row.name}</td>
 						<td>{row.ipAddress}</td>
-						<td>{row.macAddress}</td>
 					</tr>
 				{/each}
 			</tbody>

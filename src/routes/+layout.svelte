@@ -1,15 +1,11 @@
 <script lang="ts">
 	import '../app.postcss';
-	import { AppShell, AppBar, type ModalComponent } from '@skeletonlabs/skeleton';
 	import 'iconify-icon';
-	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	import { initializeStores } from '@skeletonlabs/skeleton';
-	import { Modal } from '@skeletonlabs/skeleton';
+	import { initializeStores, storePopup, Modal, TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
-
-	const modalRegistry: Record<string, ModalComponent> = {
+	import { page } from '$app/stores';
+	const modalRegistry = {
 		EditComputerForm: { ref: EditComputerForm }
 	};
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
@@ -18,60 +14,28 @@
 
 <Modal components={modalRegistry} />
 
-<!-- <AppShell>...</AppShell> -->
-<!-- App Shell -->
-<AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<!-- <AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-			</svelte:fragment>
-		</AppBar> -->
-	</svelte:fragment>
-	<!-- Left Sidebar Slot -->
-	<svelte:fragment slot="sidebarLeft">
-		<!-- <iconify-icon icon="mdi:home"></iconify-icon> -->
-		<nav class="list-nav">
-			<ul>
-				<li><a href="/">🏠</a></li>
-				<li>
-					<a href="/computers">
-						🖥️ <br />
-						🖥️
-						<br />
-						🖥️
-					</a>
-				</li>
-			</ul>
-		</nav>
-	</svelte:fragment>
-	<!-- Page Route Content -->
-	<slot />
-</AppShell>
+<TabGroup
+	justify="justify-center"
+	active="variant-filled-primary text-light"
+	hover="hover:variant-soft-primary"
+	flex="flex-1 lg:flex-none"
+	rounded=""
+	border=""
+	class="bg-surface-100-800-token w-full mb-6"
+>
+	<TabAnchor href="/" selected={$page.url.pathname === '/'} title="Home">
+		<svelte:fragment slot="lead">
+			<img src="/icons/favicon-32x32.png" alt="lockit" class="ps-1 pb-2" />
+		</svelte:fragment>
+		<span>LockIT</span>
+	</TabAnchor>
+	<TabAnchor href="/computers" title="Computers" selected={$page.url.pathname === '/computers'}>
+		<svelte:fragment slot="lead">
+			<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
+		</svelte:fragment>
+		<span>Computers</span>
+	</TabAnchor>
+</TabGroup>
+
+<!-- Page Route Content -->
+<slot />
