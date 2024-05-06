@@ -2,11 +2,11 @@
 	import '../app.postcss';
 	import 'iconify-icon';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { initializeStores, storePopup, Modal, TabGroup, TabAnchor } from '@skeletonlabs/skeleton';
+	import { initializeStores, storePopup, Modal, TabGroup, TabAnchor, Toast } from '@skeletonlabs/skeleton';
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
 	import { page } from '$app/stores';
 	import { version } from '$app/environment';
-	console.log(`Client version: ${version}`);
+
 	const modalRegistry = {
 		EditComputerForm: { ref: EditComputerForm }
 	};
@@ -15,7 +15,7 @@
 </script>
 
 <Modal components={modalRegistry} />
-
+<Toast />
 <TabGroup
 	justify="justify-center"
 	active="variant-filled-primary text-light"

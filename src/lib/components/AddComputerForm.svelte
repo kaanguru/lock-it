@@ -2,12 +2,16 @@
 	import { setMessage, superForm, defaults, dateProxy } from 'sveltekit-superforms/client';
 	import { _computerSchema, addComputer } from '$lib/db';
 	import { zod } from 'sveltekit-superforms/adapters';
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import { Accordion, AccordionItem, getToastStore } from '@skeletonlabs/skeleton';
+	const toastStore = getToastStore();
 
 	const addComputerAndSetMessage = async ({ form }: { form: any }): Promise<void> => {
 		if (form.valid) {
 			await addComputer(form.data);
 			setMessage(form, `Computer: ${form.data.name} has been added!`);
+			toastStore.trigger({
+				message: `Computer: ${form.data.name} has been added!`
+			});
 		} else {
 			setMessage(form, 'Form is invalid!');
 		}
