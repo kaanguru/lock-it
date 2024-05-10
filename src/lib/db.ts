@@ -50,14 +50,20 @@ export interface Computer {
 	softwareIDs?: number[] | undefined;
 	printerIDs?: number[] | undefined;
 }
-
+export interface Setting {
+	id?: number;
+	key: string;
+	value: string;
+  }
 // Database class
 export class LockITDatabase extends Dexie {
 	computers!: Table<Computer>;
+	settings!: Dexie.Table<Setting, number>;
 	constructor() {
 		super('LockITDatabase');
 		this.version(1).stores({
-			computers: '++id, name, ipAddress, &macAddress, &remoteConnectionId'
+			computers: '++id, name, ipAddress, &macAddress, &remoteConnectionId',
+			settings: '++id, key'
 		});
 		this.computers = this.table('computers');
 	}

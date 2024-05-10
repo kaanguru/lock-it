@@ -40,4 +40,6 @@
 </TabGroup>
 
 <!-- Page Route Content -->
-<slot />
+<div class="flex justify-center">
+	<slot />
+</div>
