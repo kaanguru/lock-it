@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import Dexie, { type Table } from 'dexie';
+import Dexie from 'dexie';
 // eslint-disable-next-line no-useless-escape
 const macRegex = /^([0-9A-Fa-f]{2}[\.:\-]{1})+[0-9A-Fa-f]{2}$/;
 // Schema and interfaces
@@ -55,17 +55,25 @@ export interface Setting {
 	key: string;
 	value: string;
   }
+export interface Token {
+	id?: number;
+	token: string;
+  }
 // Database class
 export class LockITDatabase extends Dexie {
-	computers!: Table<Computer>;
+	computers!: Dexie.Table<Computer>;
 	settings!: Dexie.Table<Setting, number>;
+	authTokens!: Dexie.Table<Token>;
 	constructor() {
 		super('LockITDatabase');
 		this.version(1).stores({
 			computers: '++id, name, ipAddress, &macAddress, &remoteConnectionId',
-			settings: '++id, key'
+			settings: '++id, key',
+			authTokens: '++id,token'
 		});
 		this.computers = this.table('computers');
+		this.settings = this.table('settings');
+		this.authTokens = this.table('authTokens');
 	}
 }
 // CRLUD operations
