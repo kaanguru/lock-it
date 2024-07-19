@@ -1,0 +1,8 @@
+{
+  "name": "lock-it",
+  "private": true,
+  "workspaces": [
+    "app/*",
+    "website/*"
+  ]
+}

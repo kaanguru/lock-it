@@ -1,0 +1,292 @@
+<script lang="ts">
+	import { setMessage, superForm, defaults, dateProxy } from 'sveltekit-superforms/client';
+	import { _computerSchema, addComputer } from '$lib/db';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import { Accordion, AccordionItem, getToastStore } from '@skeletonlabs/skeleton';
+	const toastStore = getToastStore();
+
+	const addComputerAndSetMessage = async ({ form }: { form: any }): Promise<void> => {
+		if (form.valid) {
+			await addComputer(form.data);
+			setMessage(form, `Computer: ${form.data.name} has been added!`);
+			toastStore.trigger({
+				message: `Computer: ${form.data.name} has been added!`
+			});
+		} else {
+			setMessage(form, 'Form is invalid!');
+		}
+	};
+	const { form, errors, constraints, enhance, message } = superForm(defaults(zod(_computerSchema)), {
+		id: 'add-form',
+		SPA: true,
+		validators: zod(_computerSchema),
+		onUpdate: addComputerAndSetMessage
+	});
+
+	const installationDate = dateProxy(form, 'installationDate', {
+		format: 'date',
+		empty: 'undefined'
+	});
+	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec'];
+	let selectedRemoteConnectionSoftware = '';
+	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
+		selectedRemoteConnectionSoftware = selSof;
+		$form.removeConnectionSoftware = selSof;
+	}
+</script>
+
+<div class="flex flex-col">
+	<h2>
+		New Computer <iconify-icon icon="line-md:computer"></iconify-icon>
+	</h2>
+	<form method="POST" use:enhance>
+		<p>
+			<label>
+				<span>Name</span>
+				<input
+					title="Name"
+					type="text"
+					placeholder="Name"
+					class={$errors.name ? 'input-error' : undefined}
+					aria-invalid={$errors.name ? 'true' : undefined}
+					bind:value={$form.name}
+					{...$constraints.name}
+				/>
+				{#if $errors.name}<span class="error">{$errors.name}</span>{/if}
+			</label>
+			<Accordion class="btn-group-vertical variant-ghost-primary">
+				<AccordionItem>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:cable"></iconify-icon>
+						Remote Connection
+					</svelte:fragment>
+					<svelte:fragment slot="content">
+						<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
+						{#each remoteConnectionSoftwares as sof}
+							<button
+								class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
+								on:click|preventDefault={() => {
+									updateSelectedRemoteConnectionSoftware(sof);
+								}}
+								on:keypress
+							>
+								{#if selectedRemoteConnectionSoftware === sof}<span>✅</span>{/if}
+								<span>{sof}</span>
+							</button>
+						{/each}
+						<label>
+							<span>remote Connection Id</span>
+							<input
+								title="remoteConnectionId"
+								type="text"
+								class={$errors.remoteConnectionId ? 'input-error' : undefined}
+								aria-invalid={$errors.remoteConnectionId ? 'true' : undefined}
+								bind:value={$form.remoteConnectionId}
+								{...$constraints.remoteConnectionId}
+							/>
+							{#if $errors.remoteConnectionId}<span class="error">{$errors.remoteConnectionId}</span>{/if}
+						</label>
+						<label>
+							<span>remoteConnectionPass</span>
+							<input
+								title="remoteConnectionPass"
+								type="password"
+								class={$errors.remoteConnectionPass ? 'input-error' : undefined}
+								aria-invalid={$errors.remoteConnectionPass ? 'true' : undefined}
+								bind:value={$form.remoteConnectionPass}
+								{...$constraints.remoteConnectionPass}
+							/>
+							{#if $errors.remoteConnectionPass}<span class="error">{$errors.remoteConnectionPass}</span>{/if}
+						</label>
+					</svelte:fragment>
+				</AccordionItem>
+				<AccordionItem>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:network"></iconify-icon>
+						Network
+					</svelte:fragment>
+					<svelte:fragment slot="content">
+						<label>
+							<span>IP Address</span>
+							<input
+								title="IP Address"
+								type="text"
+								placeholder="IP Address"
+								class={$errors.ipAddress ? 'input-error' : undefined}
+								aria-invalid={$errors.ipAddress ? 'true' : undefined}
+								bind:value={$form.ipAddress}
+								{...$constraints.ipAddress}
+							/>
+							{#if $errors.ipAddress}<span class="error">{$errors.ipAddress}</span>{/if}
+						</label>
+						<label>
+							<span>Mac Address</span>
+							<input
+								title="Mac Address"
+								type="text"
+								placeholder="Mac Address"
+								class={$errors.macAddress ? 'input-error' : undefined}
+								aria-invalid={$errors.macAddress ? 'true' : undefined}
+								bind:value={$form.macAddress}
+								{...$constraints.macAddress}
+							/>
+							{#if $errors.macAddress}<span class="error">{$errors.macAddress}</span>{/if}
+						</label>
+					</svelte:fragment>
+				</AccordionItem>
+				<AccordionItem>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:cpu"></iconify-icon>
+						Hardware
+					</svelte:fragment>
+					<svelte:fragment slot="content">
+						<label>
+							<span>Memory Ram Gb</span>
+							<input
+								title="Memory"
+								type="number"
+								placeholder="8"
+								class={$errors.memory ? 'input-error' : undefined}
+								aria-invalid={$errors.memory ? 'true' : undefined}
+								bind:value={$form.memory}
+								{...$constraints.memory}
+							/>
+							{#if $errors.memory}<span class="error">{$errors.memory}</span>{/if}
+						</label>
+						<label>
+							<span>Processor</span>
+							<input
+								title="processor"
+								type="text"
+								placeholder="i7"
+								class={$errors.processor ? 'input-error' : undefined}
+								aria-invalid={$errors.processor ? 'true' : undefined}
+								bind:value={$form.processor}
+								{...$constraints.processor}
+							/>
+							{#if $errors.processor}<span class="error">{$errors.processor}</span>{/if}
+						</label>
+						<label>
+							<span>Mother Board</span>
+							<input
+								title="motherBoard"
+								type="text"
+								placeholder="MSI AS"
+								class={$errors.motherBoard ? 'input-error' : undefined}
+								aria-invalid={$errors.motherBoard ? 'true' : undefined}
+								bind:value={$form.motherBoard}
+								{...$constraints.motherBoard}
+							/>
+							{#if $errors.motherBoard}<span class="error">{$errors.motherBoard}</span>{/if}
+						</label>
+						<label>
+							<span>Monitor</span>
+							<input
+								title="monitor"
+								type="text"
+								class={$errors.monitor ? 'input-error' : undefined}
+								aria-invalid={$errors.monitor ? 'true' : undefined}
+								bind:value={$form.monitor}
+								{...$constraints.monitor}
+							/>
+							{#if $errors.monitor}<span class="error">{$errors.monitor}</span>{/if}
+						</label>
+						<label>
+							<span>video Adaptor</span>
+							<input
+								title="videoAdaptor"
+								type="text"
+								class={$errors.videoAdaptor ? 'input-error' : undefined}
+								aria-invalid={$errors.videoAdaptor ? 'true' : undefined}
+								bind:value={$form.videoAdaptor}
+								{...$constraints.videoAdaptor}
+							/>
+							{#if $errors.videoAdaptor}<span class="error">{$errors.videoAdaptor}</span>{/if}
+						</label>
+						<label>
+							<span>disk1</span>
+							<input
+								title="disk1"
+								type="text"
+								class={$errors.disk1 ? 'input-error' : undefined}
+								aria-invalid={$errors.disk1 ? 'true' : undefined}
+								bind:value={$form.disk1}
+								{...$constraints.disk1}
+							/>
+							{#if $errors.disk1}<span class="error">{$errors.disk1}</span>{/if}
+						</label>
+						<label>
+							<span>disk2</span>
+							<input
+								title="disk2"
+								type="text"
+								class={$errors.disk2 ? 'input-error' : undefined}
+								aria-invalid={$errors.disk2 ? 'true' : undefined}
+								bind:value={$form.disk2}
+								{...$constraints.disk2}
+							/>
+							{#if $errors.disk2}<span class="error">{$errors.disk2}</span>{/if}
+						</label>
+					</svelte:fragment>
+				</AccordionItem>
+				<AccordionItem>
+					<svelte:fragment slot="summary">
+						<iconify-icon icon="lucide:app-window"></iconify-icon>
+						Software
+					</svelte:fragment>
+					<svelte:fragment slot="content">
+						<label>
+							<span>Windows Version</span>
+							<input
+								title="windowsVersion"
+								type="text"
+								placeholder="Win 10 pro"
+								class={$errors.windowsVersion ? 'input-error' : undefined}
+								aria-invalid={$errors.windowsVersion ? 'true' : undefined}
+								bind:value={$form.windowsVersion}
+								{...$constraints.windowsVersion}
+							/>
+							{#if $errors.windowsVersion}<span class="error">{$errors.windowsVersion}</span>{/if}
+						</label>
+						<label>
+							<span>installation Date</span>
+							<input
+								name="date"
+								title="installationDate"
+								type="date"
+								class={$errors.installationDate ? 'input-error' : undefined}
+								aria-invalid={$errors.installationDate ? 'true' : undefined}
+								bind:value={$installationDate}
+								{...$constraints.installationDate}
+							/>
+							{#if $errors.installationDate}<span class="error">{$errors.installationDate}</span>{/if}
+						</label>
+					</svelte:fragment>
+				</AccordionItem>
+			</Accordion>
+		</p>
+		<label>
+			<iconify-icon icon="lucide:notebook-pen"></iconify-icon>
+			<span class="text-end">notes</span>
+			<textarea
+				title="notes"
+				class={$errors.notes ? 'input-error' : undefined}
+				aria-invalid={$errors.notes ? 'true' : undefined}
+				bind:value={$form.notes}
+				{...$constraints.notes}
+			></textarea>
+			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
+		</label>
+		<button>
+			<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
+			Add Computer
+		</button>
+		{#if $message}<p>{$message}</p>{/if}
+	</form>
+</div>
+
+<style>
+	label span {
+		@apply capitalize;
+	}
+</style>
