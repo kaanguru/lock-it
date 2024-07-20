@@ -5,7 +5,6 @@ import Note from '~/components/widgets/Note.astro';
 import Features from '~/components/widgets/Features.astro';
 import { Picture } from 'astro:assets';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
@@ -86,52 +85,31 @@ import namesOnMetal from '../assets/images/names-on-metal.jpg';
   <!-- FAQs Widget ******************* -->
 
   <FAQs
-    title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
+    title="Why LockIT?"
+    subtitle="Dive into the powerful features that LockIT offers and how it can elevate your web development journey."
     tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     items={[
       {
-        title: 'Why AstroWind?',
+        title: '1. Offline Functionality:',
         description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+          " One of the main benefits of PWAs with local storage is the ability to provide offline functionality. PWAs can store data in the local storage of the user's device, allowing the app to load previously stored data even when the user is not connected to the internet. This enables the app to function seamlessly even in poor network conditions",
       },
       {
-        title: 'What do I need to start?',
+        title: '2. Improved Performance',
         description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+          ' By utilizing local storage, PWAs can improve performance by reducing reliance on the network connection. Traditional websites heavily rely on the network connection to fetch data, which can result in slower loading times. With local storage, PWAs can store frequently accessed data locally, reducing the need for repeated network requests and improving overall performance',
       },
       {
-        title: 'How to install the Astro + Tailwind CSS template?',
+        title: '3. Enhanced User Experience',
         description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
+          'PWAs with local storage can provide a better user experience by allowing users to continue using the app even when they are offline or have a poor network connection. By storing data locally, PWAs can ensure that users can access previously loaded content, view cached pages, and perform certain actions without an internet connection',
       },
       {
-        title: "What's something that you don't understand?",
+        title: '4. Persistent Storage',
         description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
+          " PWAs can request persistent storage, which means that data stored in IndexedDB and Cache Storage will not be deleted by the browser when storage space runs low or when the user hasn't interacted with the app for a period of time. The browser will retain the data as long as possible and provide a way for the user to manually remove some data if necessary.",
       },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
-      },
-    ]}
-  />
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
     ]}
   />
 
