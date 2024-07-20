@@ -1,10 +1,9 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
 import Hero from '~/components/widgets/Hero.astro';
 import Note from '~/components/widgets/Note.astro';
 import Features from '~/components/widgets/Features.astro';
-
+import { Picture } from 'astro:assets';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
@@ -13,6 +12,7 @@ const metadata = {
   title: 'Lock-IT is helping IT people ',
   ignoreTitleTemplate: true,
 };
+import namesOnMetal from '../assets/images/names-on-metal.jpg';
 ---
 
 <Layout metadata={metadata}>
@@ -29,7 +29,7 @@ const metadata = {
       },
       { text: 'Learn more', href: '#features' },
     ]}
-    image={{ src: '~/assets/images/names-on-metal.jpg', alt: ' Keep Your Data Offline with Lock-IT' }}
+    image={{ src: '/img/lock-it-enter.webp', alt: ' Keep Your Data Offline with Lock-IT' }}
   >
     <Fragment slot="title">
       <span class="hidden xl:inline">Keep Your Network Devices Under Control!</span>
@@ -48,7 +48,7 @@ const metadata = {
   </Hero>
 
   <!-- Note Widget ******************* -->
-  <img class="max-w-screen-md mx-auto p-2" src="/img/lock-it-enter.webp" alt="enterence of lock-it app" />
+  <Picture class="max-w-screen-md mx-auto p-2" src={namesOnMetal} alt="enterence of lock-it app" />
   <Note />
 
   <!-- Features Widget *************** -->
@@ -144,17 +144,16 @@ const metadata = {
         text: 'Get Started',
         href: 'https://github.com/kaanguru/lock-it',
         target: '_blank',
-        icon: 'tabler:download',
+        icon: 'tabler:database',
       },
     ]}
   >
     <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
+      Lock<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">IT</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
+      Start taking notes about computers under your responsibility <br class="hidden md:inline" />It's Free Forever!
     </Fragment>
   </CallToAction>
 </Layout>
