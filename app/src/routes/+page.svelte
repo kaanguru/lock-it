@@ -23,7 +23,7 @@
 		);
 	}
 
-	function save() {
+	function saveMasterPass() {
 		console.log('ℹ  ~ plainTextPasswordtoSave:', plainTextPassword);
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
@@ -37,7 +37,7 @@
 		<h1>Hello stranger!</h1>
 		<img src="img/lockit-logo.png" alt="logo" />
 		<p>Enter a Password which will be your main password after all</p>
-		<form on:submit|preventDefault={save}>
+		<form on:submit|preventDefault={saveMasterPass}>
 			<MainPasswordInputArea submit="Save Your Main Password" on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
 	</div>
