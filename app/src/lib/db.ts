@@ -54,26 +54,26 @@ export interface Setting {
 	id?: number;
 	key: string;
 	value: string;
-  }
+}
 export interface Token {
 	id?: number;
 	token: string;
-  }
+}
 // Database class
 export class LockITDatabase extends Dexie {
 	computers!: Dexie.Table<Computer>;
 	settings!: Dexie.Table<Setting, number>;
-	authTokens!: Dexie.Table<Token>;
+	authToken!: Dexie.Table<Token>;
 	constructor() {
 		super('LockITDatabase');
 		this.version(1).stores({
 			computers: '++id, name, ipAddress, &macAddress, &remoteConnectionId',
 			settings: '++id, key',
-			authTokens: '++id,token'
+			authToken: '++id,token'
 		});
 		this.computers = this.table('computers');
 		this.settings = this.table('settings');
-		this.authTokens = this.table('authTokens');
+		this.authToken = this.table('authToken');
 	}
 }
 // CRLUD operations
