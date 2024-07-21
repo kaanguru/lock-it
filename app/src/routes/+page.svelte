@@ -6,6 +6,7 @@
 	let plainTextPasswordtoSave = '';
 	const loggedIn = writable(false);
 	const authToken = writable('');
+	let visiblePasswordInputArea = false;
 	let loin = false;
 	loggedIn.subscribe((v) => {
 		console.log(v);
@@ -28,6 +29,9 @@
 		authToken.set(hash.toString(CryptoJS.enc.Base64));
 		authToken.subscribe((v) => console.log('saved', v));
 	}
+	function toggleEye(event: MouseEvent) {
+		visiblePasswordInputArea = !visiblePasswordInputArea;
+	}
 </script>
 
 {#if loin}
@@ -36,8 +40,18 @@
 		<img src="img/lockit-logo.png" alt="logo" />
 		<p>Enter your Password to go on</p>
 		<form on:submit|preventDefault={unlock}>
-			<input type="password" bind:value={plainTextPassword} placeholder="Enter main password" required />
-			<button type="submit">Unlock</button>
+			<div class="input-group input-group-divider grid-cols-[1fr_auto]">
+				<input
+					type={visiblePasswordInputArea ? 'text' : 'password'}
+					bind:value={plainTextPasswordtoSave}
+					placeholder="Enter main password"
+					required
+				/>
+				<button type="button" on:click={toggleEye} class="btn-icon btn-icon-md variant-filled">
+					<iconify-icon icon="la:eye"></iconify-icon>
+				</button>
+			</div>
+			<button type="submit">UnLock</button>
 		</form>
 	</div>
 {:else}
@@ -46,7 +60,21 @@
 		<img src="img/lockit-logo.png" alt="logo" />
 		<p>Enter a Password which will be your main password after all</p>
 		<form on:submit|preventDefault={save}>
-			<input type="password" bind:value={plainTextPasswordtoSave} placeholder="Enter main password" required />
+			<div class="input-group input-group-divider grid-cols-[1fr_auto]">
+				<input
+					type={visiblePasswordInputArea ? 'text' : 'password'}
+					bind:value={plainTextPasswordtoSave}
+					placeholder="Enter main password"
+					required
+				/>
+				<button type="button" on:click={toggleEye} class="btn-icon btn-icon-md variant-filled">
+					{#if visiblePasswordInputArea}
+						<iconify-icon icon="la:eye"></iconify-icon>
+					{:else}
+						<iconify-icon icon="la:eye-slash"></iconify-icon>
+					{/if}
+				</button>
+			</div>
 			<button type="submit">Save</button>
 		</form>
 	</div>
