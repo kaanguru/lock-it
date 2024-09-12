@@ -69,7 +69,7 @@ export class LockITDatabase extends Dexie {
 		this.version(1).stores({
 			computers: '++id, name, ipAddress, &macAddress, &remoteConnectionId',
 			settings: '++id, key',
-			authToken: '++id,token'
+			authToken: 'id,token'
 		});
 		this.computers = this.table('computers');
 		this.settings = this.table('settings');
@@ -87,6 +87,17 @@ export async function addComputer(computer: Computer): Promise<void> {
 		throw error;
 	}
 }
+export async function setToken(token:string): Promise<void> {
+	try {
+		await db.authToken.put({
+			token
+		});
+	} catch (error) {
+		console.error('Error seting token:', error);
+		throw error;
+	}
+}
+
 
 export async function editComputer(computer: Computer): Promise<void> {
 	try {

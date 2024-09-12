@@ -5,7 +5,6 @@
 	export let data;
 	let plainTextPassword = 'test';
 	const loggedIn = writable(false);
-	const authToken = writable('');
 
 	loggedIn.subscribe((v) => {
 		console.log('loggedIn:' + v);
@@ -18,7 +17,7 @@
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
 		console.log('ℹ  ~ unlock ~ hash:', hash.toString(CryptoJS.enc.Base64));
-		authToken.subscribe((v) =>
+		data.authToken.((v) =>
 			v.length !== 0 || v === hash.toString(CryptoJS.enc.Base64) ? loggedIn.set(true) : loggedIn.set(false)
 		);
 	}
@@ -27,9 +26,10 @@
 		console.log('ℹ  ~ plainTextPasswordtoSave:', plainTextPassword);
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
-		authToken.set(hash.toString(CryptoJS.enc.Base64));
+		data.authToken. set(hash.toString(CryptoJS.enc.Base64));
 		authToken.subscribe((v) => console.log('saved', v));
 	}
+	console.log('ℹ  ~ load ~ firstTime:', data.firstTime);
 </script>
 
 {#if data.firstTime}
