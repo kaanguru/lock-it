@@ -114,7 +114,8 @@ export async function deleteComputer(id: number | string): Promise<void> {
 export async function setToken(token: string): Promise<void> {
 	try {
 		await db.authToken.put({
-			token
+			id: 0,
+			token: token
 		});
 	} catch (error) {
 		console.error('Error seting token:', error);
