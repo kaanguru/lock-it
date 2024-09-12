@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { db, setToken } from '$lib/db';
 	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
 	import CryptoJS from 'crypto-js';
 	import { writable } from 'svelte/store';
@@ -17,17 +18,18 @@
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
 		console.log('ℹ  ~ unlock ~ hash:', hash.toString(CryptoJS.enc.Base64));
-		data.authToken.((v) =>
-			v.length !== 0 || v === hash.toString(CryptoJS.enc.Base64) ? loggedIn.set(true) : loggedIn.set(false)
-		);
+
+		data.authToken.token.length !== 0 || data.authToken.token === hash.toString(CryptoJS.enc.Base64)
+			? loggedIn.set(true)
+			: loggedIn.set(false);
 	}
 
 	function saveMasterPass() {
 		console.log('ℹ  ~ plainTextPasswordtoSave:', plainTextPassword);
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
-		data.authToken. set(hash.toString(CryptoJS.enc.Base64));
-		authToken.subscribe((v) => console.log('saved', v));
+		setToken(hash.toString(CryptoJS.enc.Base64));
+		console.log('saved', data.authToken.token);
 	}
 	console.log('ℹ  ~ load ~ firstTime:', data.firstTime);
 </script>

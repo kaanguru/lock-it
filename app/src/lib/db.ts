@@ -87,18 +87,6 @@ export async function addComputer(computer: Computer): Promise<void> {
 		throw error;
 	}
 }
-export async function setToken(token:string): Promise<void> {
-	try {
-		await db.authToken.put({
-			token
-		});
-	} catch (error) {
-		console.error('Error seting token:', error);
-		throw error;
-	}
-}
-
-
 export async function editComputer(computer: Computer): Promise<void> {
 	try {
 		// Check if the computer object has an 'id' field
@@ -123,5 +111,14 @@ export async function deleteComputer(id: number | string): Promise<void> {
 		throw error; // Rethrow the error to be handled by the caller
 	}
 }
-
+export async function setToken(token: string): Promise<void> {
+	try {
+		await db.authToken.put({
+			token
+		});
+	} catch (error) {
+		console.error('Error seting token:', error);
+		throw error;
+	}
+}
 export const db = new LockITDatabase();
