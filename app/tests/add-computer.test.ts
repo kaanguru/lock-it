@@ -8,7 +8,6 @@ const mockData = generateMock(_computerSchema);
 test.beforeEach(async ({ page }) => {
 	await page.goto('/computers/add');
 	await page.getByTitle('Name').fill(mockData.name);
-	
 });
 test.describe('Tests expected to pass', () => {
 	test.afterEach('düğmeye bas kontrol et', async ({ page }) => {
@@ -17,11 +16,12 @@ test.describe('Tests expected to pass', () => {
 	});
 
 	test('add ✅ all', async ({ page }) => {
-  await page.getByRole('button', { name: 'Network' }).click();
-  await fillField(page, 'IP Address', faker.internet.ipv4());
-  await fillField(page, 'Mac Address', faker.internet.mac());
-  
-  await page.getByRole('button', { name: 'Hardware' }).click();
+		await page.getByRole('button', { name: 'Network' }).click();
+		await fillField(page, 'IP Address', faker.internet.ipv4());
+		await fillField(page, 'Mac Address', faker.internet.mac());
+		await page.getByRole('button', { name: 'Network' }).click();
+
+		await page.getByRole('button', { name: 'Hardware' }).click();
 		// Conditionally fill fields based on mockData
 		const titlesAndValues = [
 			['processor', mockData.processor],
@@ -44,8 +44,7 @@ test.describe('Checks of wrong enterence', () => {
 		await page.getByRole('button', { name: 'Add Computer' }).click();
 		await expect(page.locator('.error >> text=Invalid ip')).toBeVisible();
 	});
-	
-	
+
 	test('add  ✅ name / ✅ ip / ❌ MAC ', async ({ page }) => {
 		await page.getByRole('button', { name: 'Network' }).click();
 		await page.getByTitle('IP Address').fill(faker.internet.ipv4());

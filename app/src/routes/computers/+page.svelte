@@ -8,7 +8,16 @@
 	import RowCount from '$lib/components/table/RowCount.svelte';
 	import RowsPerPage from '$lib/components/table/RowsPerPage.svelte';
 	import Pagination from '$lib/components/table/Pagination.svelte';
+	import { loggedIn } from '$lib/store';
 
+	loggedIn.subscribe((v) => {
+		if (v) {
+			console.log('🟩');
+		} else {
+			console.log('🟥');
+			goto('/');
+		}
+	});
 	export let data;
 	const handler = new DataHandler(data.computers, { rowsPerPage: 10 });
 	const rows = handler.getRows();
@@ -18,7 +27,7 @@
 	}
 </script>
 
-<div class="mx-auto max-w-md flex flex-col">
+<div class="mx-auto max-w-lg flex flex-col">
 	<a href="/computers/add" class="btn variant-soft-primary mb-6" data-sveltekit-preload-data="hover">
 		<span>Add New Computer</span>
 		<span class="ps-2">

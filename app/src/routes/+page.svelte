@@ -8,10 +8,11 @@
 	let plainTextPassword: string;
 
 	loggedIn.subscribe((v) => {
-		console.log('🟥 loggedIn:' + v);
 		if (v) {
+			console.log('🟩');
 			goto('/computers');
 		} else {
+			console.log('🟥');
 			goto('/');
 		}
 	});
@@ -40,7 +41,9 @@
 			goto('/');
 		}
 	}
-	console.log('ℹ  ~ load ~ firstTime:', data.firstTime);
+	if (data.firstTime) {
+		console.log('ℹ  ~ load ~ firstTime');
+	}
 </script>
 
 {#if data.firstTime}

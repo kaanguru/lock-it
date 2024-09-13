@@ -46,6 +46,7 @@
 				<input
 					title="Name"
 					type="text"
+					autocomplete="off"
 					placeholder="Name"
 					class={$errors.name ? 'input-error' : undefined}
 					aria-invalid={$errors.name ? 'true' : undefined}
@@ -61,7 +62,12 @@
 						Remote Connection
 					</svelte:fragment>
 					<svelte:fragment slot="content">
-						<input title="removeConnectionSoftware" type="hidden" bind:value={$form.removeConnectionSoftware} />
+						<input
+							title="removeConnectionSoftware"
+							type="hidden"
+							autocomplete="off"
+							bind:value={$form.removeConnectionSoftware}
+						/>
 						{#each remoteConnectionSoftwares as sof}
 							<button
 								class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
@@ -79,6 +85,7 @@
 							<input
 								title="remoteConnectionId"
 								type="text"
+								autocomplete="off"
 								class={$errors.remoteConnectionId ? 'input-error' : undefined}
 								aria-invalid={$errors.remoteConnectionId ? 'true' : undefined}
 								bind:value={$form.remoteConnectionId}
@@ -91,6 +98,7 @@
 							<input
 								title="remoteConnectionPass"
 								type="password"
+								autocomplete="off"
 								class={$errors.remoteConnectionPass ? 'input-error' : undefined}
 								aria-invalid={$errors.remoteConnectionPass ? 'true' : undefined}
 								bind:value={$form.remoteConnectionPass}
@@ -112,6 +120,7 @@
 								title="IP Address"
 								type="text"
 								placeholder="IP Address"
+								autocomplete="off"
 								class={$errors.ipAddress ? 'input-error' : undefined}
 								aria-invalid={$errors.ipAddress ? 'true' : undefined}
 								bind:value={$form.ipAddress}
@@ -125,6 +134,7 @@
 								title="Mac Address"
 								type="text"
 								placeholder="Mac Address"
+								autocomplete="off"
 								class={$errors.macAddress ? 'input-error' : undefined}
 								aria-invalid={$errors.macAddress ? 'true' : undefined}
 								bind:value={$form.macAddress}
@@ -158,6 +168,7 @@
 							<input
 								title="processor"
 								type="text"
+								autocomplete="off"
 								placeholder="i7"
 								class={$errors.processor ? 'input-error' : undefined}
 								aria-invalid={$errors.processor ? 'true' : undefined}
@@ -171,6 +182,7 @@
 							<input
 								title="motherBoard"
 								type="text"
+								autocomplete="off"
 								placeholder="MSI AS"
 								class={$errors.motherBoard ? 'input-error' : undefined}
 								aria-invalid={$errors.motherBoard ? 'true' : undefined}
@@ -184,6 +196,7 @@
 							<input
 								title="monitor"
 								type="text"
+								autocomplete="off"
 								class={$errors.monitor ? 'input-error' : undefined}
 								aria-invalid={$errors.monitor ? 'true' : undefined}
 								bind:value={$form.monitor}
@@ -196,6 +209,7 @@
 							<input
 								title="videoAdaptor"
 								type="text"
+								autocomplete="off"
 								class={$errors.videoAdaptor ? 'input-error' : undefined}
 								aria-invalid={$errors.videoAdaptor ? 'true' : undefined}
 								bind:value={$form.videoAdaptor}
@@ -208,6 +222,7 @@
 							<input
 								title="disk1"
 								type="text"
+								autocomplete="off"
 								class={$errors.disk1 ? 'input-error' : undefined}
 								aria-invalid={$errors.disk1 ? 'true' : undefined}
 								bind:value={$form.disk1}
@@ -220,6 +235,7 @@
 							<input
 								title="disk2"
 								type="text"
+								autocomplete="off"
 								class={$errors.disk2 ? 'input-error' : undefined}
 								aria-invalid={$errors.disk2 ? 'true' : undefined}
 								bind:value={$form.disk2}
@@ -240,6 +256,7 @@
 							<input
 								title="windowsVersion"
 								type="text"
+								autocomplete="off"
 								placeholder="Win 10 pro"
 								class={$errors.windowsVersion ? 'input-error' : undefined}
 								aria-invalid={$errors.windowsVersion ? 'true' : undefined}
@@ -273,6 +290,7 @@
 				class={$errors.notes ? 'input-error' : undefined}
 				aria-invalid={$errors.notes ? 'true' : undefined}
 				bind:value={$form.notes}
+				autocomplete="off"
 				{...$constraints.notes}
 			></textarea>
 			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}

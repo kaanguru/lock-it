@@ -3,7 +3,16 @@
 	import { selectedComputer } from '$lib/store';
 	import { deleteComputer } from '$lib/db';
 	import { goto } from '$app/navigation';
+	import { loggedIn } from '$lib/store';
 
+	loggedIn.subscribe((v) => {
+		if (v) {
+			console.log('🟩');
+		} else {
+			console.log('🟥');
+			goto('/');
+		}
+	});
 	const modalStore = getModalStore();
 	export let data;
 	selectedComputer.set(data.selectedComputer);
