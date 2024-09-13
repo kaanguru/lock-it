@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { db, setToken } from '$lib/db';
 	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
 	import CryptoJS from 'crypto-js';
 	import { loggedIn } from '$lib/store';
 	export let data;
 	let plainTextPassword: string;
-
+	let shortPassword = false;
 	loggedIn.subscribe((v) => {
 		if (v) {
 			console.log('🟩');
@@ -33,12 +33,16 @@
 	async function saveMasterPass() {
 		console.log('ℹ  ~ plainTextPasswordtoSave:', plainTextPassword);
 		console.log('ℹ  ~ data.secret is: ', data.secret);
-		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
-		setToken(hash.toString(CryptoJS.enc.Base64));
-		const tok = await db.authToken.get(0);
-		console.log('saved', tok);
-		if (tok.token.length > 3) {
+		if (plainTextPassword.length > 3) {
+			shortPassword = false;
+			const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
+			setToken(hash.toString(CryptoJS.enc.Base64));
+			const tok = await db.authToken.get(0);
+			console.log('saved', tok);
+			invalidateAll();
 			goto('/');
+		} else {
+			shortPassword = true;
 		}
 	}
 	if (data.firstTime) {
@@ -46,25 +50,26 @@
 	}
 </script>
 
-{#if data.firstTime}
-	<div class="orta-kolon">
+<div class="orta-kolon">
+	{#if data.firstTime}
 		<h1>Hello stranger!</h1>
 		<img src="img/lockit-logo.png" alt="logo" />
-		<p>Enter a Password which will be your main password after all</p>
+		<p>Enter a strong Password which will be your main password after all</p>
 		<form on:submit|preventDefault={saveMasterPass}>
 			<MainPasswordInputArea submit="Save Your Main Password" on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
-	</div>
-{:else}
-	<div class="orta-kolon">
+	{:else}
 		<h1>Hello friend!</h1>
 		<img src="img/lockit-logo.png" alt="logo" />
 		<p>Enter your Password to go on</p>
 		<form on:submit|preventDefault={unlock}>
 			<MainPasswordInputArea submit="UnLock" on:update={handleUpdate}></MainPasswordInputArea>
 		</form>
-	</div>
-{/if}
+	{/if}
+	{#if shortPassword}
+		<h4>Try longer password</h4>
+	{/if}
+</div>
 
 <style>
 	img {
