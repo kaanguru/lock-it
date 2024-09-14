@@ -1,5 +1,19 @@
 import { z } from 'zod';
 import Dexie from 'dexie';
+import { importDB, exportDB } from 'dexie-export-import';
+export async function exportDatabase(databaseName) {
+	// Open an arbitrary IndexedDB database:
+	const db = await new Dexie(databaseName).open();
+	// Export it
+	const blob = await exportDB(db);
+	return blob;
+}
+
+export async function importDatabase(file) {
+	// Import a file into a Dexie instance:
+	const db = await importDB(file);
+	return db.backendDB(); // backendDB() gives you the native IDBDatabase object.
+}
 // eslint-disable-next-line no-useless-escape
 const macRegex = /^([0-9A-Fa-f]{2}[\.:\-]{1})+[0-9A-Fa-f]{2}$/;
 // Schema and interfaces

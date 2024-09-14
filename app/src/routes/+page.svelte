@@ -4,6 +4,8 @@
 	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
 	import CryptoJS from 'crypto-js';
 	import { loggedIn } from '$lib/store';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	const toastStore = getToastStore();
 	export let data;
 	let plainTextPassword: string;
 	let shortPassword = false;
@@ -31,16 +33,17 @@
 	}
 
 	async function saveMasterPass() {
-		console.log('ℹ  ~ plainTextPasswordtoSave:', plainTextPassword);
-		console.log('ℹ  ~ data.secret is: ', data.secret);
 		if (plainTextPassword.length > 3) {
 			shortPassword = false;
 			const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
 			setToken(hash.toString(CryptoJS.enc.Base64));
 			const tok = await db.authToken.get(0);
-			console.log('saved', tok);
+			toastStore.trigger({
+				message: `You have Locked IT`
+			});
+			loggedIn.set(true);
 			invalidateAll();
-			goto('/');
+			goto('/computers');
 		} else {
 			shortPassword = true;
 		}

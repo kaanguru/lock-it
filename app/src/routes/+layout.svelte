@@ -8,6 +8,7 @@
 	import { version } from '$app/environment';
 	import { loggedIn } from '$lib/store';
 	let computersTabVisible = false;
+
 	loggedIn.subscribe((v) => {
 		if (v) {
 			console.log('🟩');
@@ -47,6 +48,12 @@
 				<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
 			</svelte:fragment>
 			<span>Computers</span>
+		</TabAnchor>
+		<TabAnchor href="/settings" title="Settings" selected={$page.url.pathname === '/settings'}>
+			<svelte:fragment slot="lead">
+				<iconify-icon icon="arcticons:quick-settings" height="2em"></iconify-icon>
+			</svelte:fragment>
+			<span>Settings</span>
 		</TabAnchor>
 	{/if}
 </TabGroup>
