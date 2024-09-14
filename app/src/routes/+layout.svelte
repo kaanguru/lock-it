@@ -6,7 +6,17 @@
 	import EditComputerForm from '$lib/components/EditComputerForm.svelte';
 	import { page } from '$app/stores';
 	import { version } from '$app/environment';
-
+	import { loggedIn } from '$lib/store';
+	let computersTabVisible = false;
+	loggedIn.subscribe((v) => {
+		if (v) {
+			console.log('🟩');
+			computersTabVisible = true;
+		} else {
+			console.log('🟥');
+			computersTabVisible = false;
+		}
+	});
 	const modalRegistry = {
 		EditComputerForm: { ref: EditComputerForm }
 	};
@@ -31,12 +41,14 @@
 		</svelte:fragment>
 		<span class="text-xs">v{version}</span>
 	</TabAnchor>
-	<TabAnchor href="/computers" title="Computers" selected={$page.url.pathname === '/computers'}>
-		<svelte:fragment slot="lead">
-			<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
-		</svelte:fragment>
-		<span>Computers</span>
-	</TabAnchor>
+	{#if computersTabVisible}
+		<TabAnchor href="/computers" title="Computers" selected={$page.url.pathname === '/computers'}>
+			<svelte:fragment slot="lead">
+				<iconify-icon icon="fxemoji:threenetworkedcomputers" height="2em"></iconify-icon>
+			</svelte:fragment>
+			<span>Computers</span>
+		</TabAnchor>
+	{/if}
 </TabGroup>
 
 <!-- Page Route Content -->
