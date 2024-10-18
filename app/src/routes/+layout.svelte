@@ -7,6 +7,7 @@
 	import { page } from '$app/stores';
 	import { version } from '$app/environment';
 	import { loggedIn } from '$lib/store';
+	import { goto } from '$app/navigation';
 	let computersTabVisible = false;
 
 	loggedIn.subscribe((v) => {
@@ -16,6 +17,7 @@
 		} else {
 			console.log('🟥');
 			computersTabVisible = false;
+			goto('/');
 		}
 	});
 	const modalRegistry = {

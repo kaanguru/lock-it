@@ -1,4 +1,5 @@
-import * as R from 'rambda'; // Ramda library for functional programming
+import * as R from 'rambda';
+import { encryptedData } from './crypt';
 
 export class PrepareForExportThenSave {
 	private tableToExport;
@@ -7,17 +8,18 @@ export class PrepareForExportThenSave {
 		this.tableToExport = tableToExport;
 	}
 	async handleExport() {
-		const fileName = `computers_${new Date().toISOString().slice(0, 10).replace(/:/g, '-')}.json`;
+		const fileName = `LockIT_${new Date().toISOString().slice(0, 10).replace(/:/g, '-')}.bak`;
 		const createUrl = R.pipe(R.always(this.tableToExport), this.createJsonBlob, (promiseBlob) =>
 			promiseBlob.then((blob: Blob) => URL.createObjectURL(blob))
 		);
 		const url = await createUrl();
-
 		await this.downloadFileThenClean(url, fileName);
 	}
 	private async createJsonBlob(data) {
 		return new Promise((resolve) => {
-			const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+			console.log('ℹ  ~ returnnewPromise ~ data:', data);
+			const blobIT = [JSON.stringify(encryptedData(data))];
+			const blob = new Blob(blobIT, { type: 'application/json' });
 			resolve(blob);
 		});
 	}

@@ -2,7 +2,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { db, setToken } from '$lib/db';
 	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
-	import CryptoJS from 'crypto-js';
+	import CryptoES from 'crypto-es';
 	import { loggedIn } from '$lib/store';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
@@ -24,10 +24,10 @@
 	async function unlock() {
 		console.log('ℹ  ~ plainTextPassword:', plainTextPassword);
 		console.log('ℹ  ~ Passwords data.secret', data.secret);
-		const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
-		console.log('ℹ  ~ unlock ~ hash:', hash.toString(CryptoJS.enc.Base64));
+		const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
+		console.log('ℹ  ~ unlock ~ hash:', hash.toString(CryptoES.enc.Base64));
 
-		data.authToken.token.length !== 0 && data.authToken.token === hash.toString(CryptoJS.enc.Base64)
+		data.authToken.token.length !== 0 && data.authToken.token === hash.toString(CryptoES.enc.Base64)
 			? loggedIn.set(true)
 			: loggedIn.set(false);
 	}
@@ -35,9 +35,11 @@
 	async function saveMasterPass() {
 		if (plainTextPassword.length > 3) {
 			shortPassword = false;
-			const hash = CryptoJS.HmacMD5(plainTextPassword, data.secret);
-			setToken(hash.toString(CryptoJS.enc.Base64));
-			const tok = await db.authToken.get(0);
+			const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
+			setToken(hash.toString(CryptoES.enc.Base64));
+			const { token } = await db.authToken.get(0);
+			const decryptedToken = CryptoES.AES.decrypt(token, data.secret).toString(CryptoES.enc.Base64);
+
 			toastStore.trigger({
 				message: `You have Locked IT`
 			});
