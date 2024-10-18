@@ -1,5 +1,7 @@
-import { db, exportComputersData } from '$lib/db';
+import { exportComputersData } from '$lib/db';
 
 export const load = async () => {
-	return { db, exportDatabase: exportComputersData };
+	return {
+		computers: await exportComputersData()
+	};
 };
