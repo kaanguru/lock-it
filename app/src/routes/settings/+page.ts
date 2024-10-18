@@ -1,5 +1,5 @@
-import { db, exportDatabase, importDatabase } from '$lib/db';
+import { db, exportComputersData } from '$lib/db';
 
 export const load = async () => {
-	return {};
+	return { db, exportDatabase: exportComputersData };
 };

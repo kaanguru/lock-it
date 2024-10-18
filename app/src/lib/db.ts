@@ -123,4 +123,19 @@ export async function setToken(token: string): Promise<void> {
 		throw error;
 	}
 }
+
 export const db = new LockITDatabase();
+export async function exportComputersData(): Promise<Computer[]> {
+	try {
+		const computers = await db.computers.toArray();
+		return computers.map((computer) => ({
+			...computer,
+			installationDate:
+				computer.installationDate instanceof Date ? computer.installationDate : new Date(computer.installationDate)
+		}));
+	} catch (error) {
+		console.error('Error exporting computers data:', error);
+		throw error;
+	}
+}
+// export async function importDatabase() {}
