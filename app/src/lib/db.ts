@@ -138,4 +138,9 @@ export async function exportComputersData(): Promise<Computer[]> {
 		throw error;
 	}
 }
-// export async function importDatabase() {}
+export async function importDatabase(data: Computer[]) {
+	await db.computers.clear();
+	data.forEach(async (computer) => {
+		await db.computers.add(computer);
+	});
+}

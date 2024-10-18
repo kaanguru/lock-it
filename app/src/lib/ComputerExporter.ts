@@ -17,7 +17,6 @@ export class PrepareForExportThenSave {
 	}
 	private async createJsonBlob(data) {
 		return new Promise((resolve) => {
-			console.log('ℹ  ~ returnnewPromise ~ data:', data);
 			const blobIT = [JSON.stringify(encryptedData(data))];
 			const blob = new Blob(blobIT, { type: 'application/json' });
 			resolve(blob);

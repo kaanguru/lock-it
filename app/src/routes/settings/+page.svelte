@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { exportComputersData, type Computer } from '$lib/db';
+	import { exportComputersData, importDatabase, type Computer } from '$lib/db';
 	import { PrepareForExportThenSave } from '$lib/ComputerExporter';
 	import { decryptData } from '$lib/crypt';
-	import CryptoES from 'crypto-es';
-
 	let computers: Computer[] = [];
 	let saver: PrepareForExportThenSave;
 
@@ -16,24 +14,17 @@
 		const input = document.createElement('input');
 		input.type = 'file';
 		input.accept = '.bak';
+		input.click();
+
 		input.onchange = async (event: Event) => {
 			const target = event.target as HTMLInputElement;
-			if (!target.files || target.files.length === 0) return;
-			const file = target.files[0];
-			const reader = new FileReader();
-			reader.onload = async (e) => {
-				if (typeof e.target?.result !== 'string') return;
-				try {
-					const data = JSON.parse(decryptData(JSON.parse(e.target.result)).toString(CryptoES.enc.Utf8))[0];
-
-					console.log('ℹ  ~ reader.onload= ~ data:', data[0].name);
-				} catch (error) {
-					console.error('Error parsing JSON file:', error);
-				}
-			};
-			reader.readAsText(file);
+			if (target.files?.length) {
+				const file = target.files[0];
+				const fileGetted: string = await new Response(file).json();
+				const computers: Computer[] = JSON.parse(decryptData(fileGetted))[0];
+				await importDatabase(computers);
+			}
 		};
-		input.click();
 	}
 </script>
 

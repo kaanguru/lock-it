@@ -26,6 +26,6 @@ const JsonFormatter = {
 export function encryptedData(data: string): object {
 	return CryptoES.Rabbit.encrypt(JSON.stringify([data]), token, { format: JsonFormatter });
 }
-export function decryptData(encryptd: CipherParams | CipherParamsCfg | string) {
-	return CryptoES.Rabbit.decrypt(encryptd, token, { format: JsonFormatter });
+export function decryptData(encryptd: string) {
+	return CryptoES.Rabbit.decrypt(encryptd, token, { format: JsonFormatter }).toString(CryptoES.enc.Utf8);
 }
