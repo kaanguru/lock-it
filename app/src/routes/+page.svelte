@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { goto, invalidateAll } from '$app/navigation';
-	import { db, setToken } from '$lib/db';
+	import { setToken } from '$lib/db';
 	import MainPasswordInputArea from '../lib/components/MainPasswordInputArea.svelte';
 	import CryptoES from 'crypto-es';
-	import { loggedIn } from '$lib/store';
+	import { errorStopSubmition, loggedIn } from '$lib/store';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	const toastStore = getToastStore();
 	export let data;
@@ -11,10 +11,8 @@
 	let shortPassword = false;
 	loggedIn.subscribe((v) => {
 		if (v) {
-			console.log('🟩');
 			goto('/computers');
 		} else {
-			console.log('🟥');
 			goto('/');
 		}
 	});
@@ -22,32 +20,40 @@
 		plainTextPassword = event.detail;
 	}
 	async function unlock() {
-		console.log('ℹ  ~ plainTextPassword:', plainTextPassword);
-		console.log('ℹ  ~ Passwords data.secret', data.secret);
 		const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
-		console.log('ℹ  ~ unlock ~ hash:', hash.toString(CryptoES.enc.Base64));
+		if (data.authToken.token && data.authToken.token === hash.toString(CryptoES.enc.Base64)) {
+			loggedIn.set(true);
+		} else {
+			(document.querySelector('input') as HTMLInputElement).value = '';
+			plainTextPassword = '';
+			toastStore.trigger({
+				message: 'Invalid password,Please try again'
+			});
 
-		data.authToken.token.length !== 0 && data.authToken.token === hash.toString(CryptoES.enc.Base64)
-			? loggedIn.set(true)
-			: loggedIn.set(false);
+			loggedIn.set(false);
+		}
 	}
 
 	async function saveMasterPass() {
-		if (plainTextPassword.length > 3) {
-			shortPassword = false;
-			const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
-			setToken(hash.toString(CryptoES.enc.Base64));
-			const { token } = await db.authToken.get(0);
-			const decryptedToken = CryptoES.AES.decrypt(token, data.secret).toString(CryptoES.enc.Base64);
+		if (!$errorStopSubmition) {
+			if (plainTextPassword.length > 3) {
+				shortPassword = false;
+				const hash = CryptoES.HmacMD5(plainTextPassword, data.secret);
+				setToken(hash.toString(CryptoES.enc.Base64));
 
-			toastStore.trigger({
-				message: `You have Locked IT`
-			});
-			loggedIn.set(true);
-			invalidateAll();
-			goto('/computers');
+				toastStore.trigger({
+					message: `You have Locked IT`
+				});
+				loggedIn.set(true);
+				invalidateAll();
+				goto('/computers');
+			} else {
+				shortPassword = true;
+			}
 		} else {
-			shortPassword = true;
+			toastStore.trigger({
+				message: '⚠️  Passwords do not match.'
+			});
 		}
 	}
 	if (data.firstTime) {
@@ -61,7 +67,8 @@
 		<img src="img/lockit-logo.png" alt="logo" />
 		<p>Enter a strong Password which will be your main password after all</p>
 		<form on:submit|preventDefault={saveMasterPass}>
-			<MainPasswordInputArea submit="Save Your Main Password" on:update={handleUpdate}></MainPasswordInputArea>
+			<MainPasswordInputArea needsTypoCheck submit="Save Your Main Password" on:update={handleUpdate}
+			></MainPasswordInputArea>
 		</form>
 	{:else}
 		<h1>Hello friend!</h1>

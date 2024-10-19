@@ -11,10 +11,7 @@
 	import { loggedIn } from '$lib/store';
 
 	loggedIn.subscribe((v) => {
-		if (v) {
-			console.log('🟩');
-		} else {
-			console.log('🟥');
+		if (!v) {
 			goto('/');
 		}
 	});

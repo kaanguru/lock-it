@@ -23,15 +23,14 @@
 				const selectedFile: string = await new Response(file).json();
 				try {
 					const computers: Computer[] = JSON.parse(decryptData(selectedFile))[0];
+					await importDatabase(computers);
+					imported = true;
 				} catch (error) {
 					//error
 					console.log('decrypt failed', error);
 					alert('Decrypt failed: file format or master password is wrong');
 					return;
 				}
-				await importDatabase(computers);
-				imported = true;
-				console.log(computers);
 			}
 		};
 	}

@@ -12,10 +12,8 @@
 
 	loggedIn.subscribe((v) => {
 		if (v) {
-			console.log('🟩');
 			computersTabVisible = true;
 		} else {
-			console.log('🟥');
 			computersTabVisible = false;
 			goto('/');
 		}

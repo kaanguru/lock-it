@@ -3,11 +3,8 @@
 	import AddComputerForm from '$lib/components/AddComputerForm.svelte';
 	import { loggedIn } from '$lib/store';
 
-	loggedIn.subscribe((v) => {
-		if (v) {
-			console.log('🟩');
-		} else {
-			console.log('🟥');
+	loggedIn.subscribe((l) => {
+		if (!l) {
 			goto('/');
 		}
 	});

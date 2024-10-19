@@ -24,8 +24,6 @@
 		} else {
 			setMessage(form, 'Form is invalid!');
 		}
-
-		console.log('ℹ  ~ handleSubmit ~ form id:', computerGettingEdited);
 	}
 	const installationDate = dateProxy(form, 'installationDate', {
 		format: 'date',

@@ -5,11 +5,8 @@
 	import { goto } from '$app/navigation';
 	import { loggedIn } from '$lib/store';
 
-	loggedIn.subscribe((v) => {
-		if (v) {
-			console.log('🟩');
-		} else {
-			console.log('🟥');
+	loggedIn.subscribe((l) => {
+		if (!l) {
 			goto('/');
 		}
 	});
@@ -43,10 +40,10 @@
 			</article>
 		</div>
 		<footer class="card-footer">
-			<button type="button" class="icon-button" on:click={() => modalStore.trigger(modal)}>
+			<button type="button" class="icon-button" on:click={() => modalStore.trigger(modal)} aria-label="Edit">
 				<iconify-icon icon="lucide:edit"></iconify-icon>
 			</button>
-			<button type="button" class="icon-button" on:click={() => deleteAndTurntoList()}>
+			<button type="button" class="icon-button" on:click={() => deleteAndTurntoList()} aria-label="Delete">
 				<iconify-icon icon="lucide:trash"></iconify-icon>
 			</button>
 		</footer>
