@@ -3,6 +3,7 @@
 	import { _computerSchema, addComputer } from '$lib/db';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { Accordion, AccordionItem, getToastStore } from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
 	const toastStore = getToastStore();
 
 	const addComputerAndSetMessage = async ({ form }: { form: any }): Promise<void> => {
@@ -35,7 +36,7 @@
 	}
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col mx-auto max-w-lg px-3">
 	<h2>
 		New Computer <iconify-icon icon="line-md:computer"></iconify-icon>
 	</h2>
@@ -299,6 +300,16 @@
 			<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
 			Add Computer
 		</button>
+		<button
+			on:click={() => {
+				goto('/computers');
+			}}
+			class="ms-9"
+			aria-label="cancel"
+		>
+			<iconify-icon icon="lucide:x"></iconify-icon>
+		</button>
+
 		{#if $message}<p>{$message}</p>{/if}
 	</form>
 </div>

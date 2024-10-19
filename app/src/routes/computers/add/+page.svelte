@@ -10,6 +10,6 @@
 	});
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center max-w-lg">
 	<AddComputerForm />
 </div>

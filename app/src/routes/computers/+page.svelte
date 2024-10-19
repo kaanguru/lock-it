@@ -24,7 +24,7 @@
 	}
 </script>
 
-<div class="mx-auto max-w-lg flex flex-col">
+<div class="max-w-lg flex flex-col">
 	<a href="/computers/add" class="btn variant-soft-primary mb-6" data-sveltekit-preload-data="hover">
 		<span>Add New Computer</span>
 		<span class="ps-2">
