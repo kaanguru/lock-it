@@ -8,7 +8,8 @@
 	export let needsTypoCheck: boolean = false;
 	const dispatch = createEventDispatcher();
 	let visiblePasswordInputArea = false;
-	function toggleEye(event: MouseEvent) {
+
+	function toggleEye() {
 		visiblePasswordInputArea = !visiblePasswordInputArea;
 	}
 	function updateValue(event: Event) {
@@ -16,7 +17,7 @@
 		dispatch('update', plainTextPassword);
 	}
 
-	function checkTypo(): void {
+	function stopSubmitionIfTypo(): void {
 		if (plainTextPassword !== controlTextPassword) {
 			errorStopSubmition.set(true);
 		} else {
@@ -58,4 +59,4 @@
 		</button>
 	</div>
 {/if}
-<button type="submit" on:click={() => checkTypo()}>{submit}</button>
+<button type="submit" on:click={() => stopSubmitionIfTypo()}>{submit}</button>
