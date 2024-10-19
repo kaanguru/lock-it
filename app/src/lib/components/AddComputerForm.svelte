@@ -28,7 +28,7 @@
 		format: 'date',
 		empty: 'undefined'
 	});
-	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec'];
+	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec', 'other'];
 	let selectedRemoteConnectionSoftware = '';
 	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
 		selectedRemoteConnectionSoftware = selSof;
@@ -71,7 +71,9 @@
 						/>
 						{#each remoteConnectionSoftwares as sof}
 							<button
-								class="chip {selectedRemoteConnectionSoftware === sof ? 'variant-filled' : 'variant-soft'}"
+								class="me-2 chip {selectedRemoteConnectionSoftware === sof
+									? 'variant-filled-primary'
+									: 'variant-soft-primary'}"
 								on:click|preventDefault={() => {
 									updateSelectedRemoteConnectionSoftware(sof);
 								}}
@@ -296,19 +298,21 @@
 			></textarea>
 			{#if $errors.notes}<span class="error">{$errors.notes}</span>{/if}
 		</label>
-		<button>
-			<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
-			Add Computer
-		</button>
-		<button
-			on:click={() => {
-				goto('/computers');
-			}}
-			class="ms-9"
-			aria-label="cancel"
-		>
-			<iconify-icon icon="lucide:x"></iconify-icon>
-		</button>
+		<div class="flex justify-around">
+			<button class="text-primary-100">
+				<iconify-icon icon="lucide:plus-circle" width="1.2rem" height="1.2rem" class="pr-4"></iconify-icon>
+				Add Computer
+			</button>
+			<button
+				on:click={() => {
+					goto('/computers');
+				}}
+				aria-label="cancel"
+				class="text-error-200"
+			>
+				<iconify-icon icon="lucide:circle-x" width="1.2rem" height="1.2rem"></iconify-icon>
+			</button>
+		</div>
 
 		{#if $message}<p>{$message}</p>{/if}
 	</form>

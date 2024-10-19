@@ -29,7 +29,7 @@
 <Toast />
 <TabGroup
 	justify="justify-center"
-	active="variant-filled-primary text-light"
+	active="variant-filled-primary text-primary-100"
 	hover="hover:variant-soft-primary"
 	flex="flex-1 lg:flex-none"
 	rounded=""

@@ -48,7 +48,7 @@
 		<button type="button" on:click={() => handleImport()}>Import your backup file</button>
 		<p>Please upload your backup file (.bak) to restore your data.</p>
 		{#if imported}
-			<p>Files imported successfully!</p>
+			<p class="success">Files imported successfully!</p>
 			<p>Here is the list of computers imported:</p>
 			<ul>
 				{#each computers as computer}
@@ -64,10 +64,13 @@
 		@apply mx-3 text-slate-100;
 	}
 	p {
-		@apply text-sm pb-9;
+		@apply text-sm pb-9 mx-4;
 	}
 	#upload,
 	#import {
 		@apply flex flex-col items-center justify-center my-4;
+	}
+	.success {
+		@apply text-success-900 text-xl;
 	}
 </style>

@@ -29,7 +29,7 @@
 		format: 'date',
 		empty: 'undefined'
 	});
-	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec'];
+	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec', 'other'];
 	let selectedRemoteConnectionSoftware = '';
 	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
 		selectedRemoteConnectionSoftware = selSof;
