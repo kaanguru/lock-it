@@ -22,7 +22,7 @@
 				const file = target.files[0];
 				const selectedFile: string = await new Response(file).json();
 				try {
-					const computers: Computer[] = JSON.parse(decryptData(selectedFile))[0];
+					const computers: Computer[] = JSON.parse(await decryptData(selectedFile))[0];
 					await importDatabase(computers);
 					imported = true;
 				} catch (error) {

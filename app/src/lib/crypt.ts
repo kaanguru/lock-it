@@ -1,7 +1,9 @@
 import CryptoES from 'crypto-es';
 import { db } from './db';
-import type { CipherParams, CipherParamsCfg } from 'crypto-es/lib/cipher-core';
-const { token } = await db.authToken.get(0);
+async function token() {
+	const { token } = await db.authToken.get(0);
+	return token;
+}
 const JsonFormatter = {
 	stringify: function (cipherParams) {
 		// create json object with ciphertext
@@ -23,9 +25,9 @@ const JsonFormatter = {
 		return cipherParams;
 	}
 };
-export function encryptedData(data: string): object {
-	return CryptoES.Rabbit.encrypt(JSON.stringify([data]), token, { format: JsonFormatter });
+export async function encryptedData(data: string): Promise<object> {
+	return CryptoES.Rabbit.encrypt(JSON.stringify([data]), await token(), { format: JsonFormatter });
 }
-export function decryptData(encryptd: string) {
-	return CryptoES.Rabbit.decrypt(encryptd, token, { format: JsonFormatter }).toString(CryptoES.enc.Utf8);
+export async function decryptData(encryptd: string) {
+	return CryptoES.Rabbit.decrypt(encryptd, await token(), { format: JsonFormatter }).toString(CryptoES.enc.Utf8);
 }

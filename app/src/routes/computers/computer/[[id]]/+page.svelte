@@ -15,6 +15,7 @@
 	selectedComputer.set(data.selectedComputer);
 	const modal: ModalSettings = {
 		type: 'component',
+		backdropClasses: '!bg-primary-100',
 		component: 'EditComputerForm'
 	};
 
