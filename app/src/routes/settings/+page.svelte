@@ -5,7 +5,7 @@
 	import { decryptData } from '$lib/crypt';
 	let computers: Computer[] = [];
 	let saver: PrepareForExportThenSave;
-
+	let imported: boolean = false;
 	onMount(async () => {
 		computers = await exportComputersData();
 		saver = new PrepareForExportThenSave(computers);
@@ -20,19 +20,55 @@
 			const target = event.target as HTMLInputElement;
 			if (target.files?.length) {
 				const file = target.files[0];
-				const fileGetted: string = await new Response(file).json();
-				const computers: Computer[] = JSON.parse(decryptData(fileGetted))[0];
+				const selectedFile: string = await new Response(file).json();
+				try {
+					const computers: Computer[] = JSON.parse(decryptData(selectedFile))[0];
+				} catch (error) {
+					//error
+					console.log('decrypt failed', error);
+					alert('Decrypt failed: file format or master password is wrong');
+					return;
+				}
 				await importDatabase(computers);
+				imported = true;
+				console.log(computers);
 			}
 		};
 	}
 </script>
 
-<button type="button" on:click={() => saver.handleExport()}>Export computers Data</button>
-<button type="button" on:click={() => handleImport()}>upload</button>
+<div id="import">
+	{#if computers.length == 0}
+		<h3>No computers found. Please import a backup file first.</h3>
+	{:else}
+		<button type="button" on:click={() => saver.handleExport()}>Export computers Data</button>
+		<p>Click the "Export computers Data" button to export your data.</p>
+	{/if}
+
+	<div id="upload">
+		<button type="button" on:click={() => handleImport()}>Import your backup file</button>
+		<p>Please upload your backup file (.bak) to restore your data.</p>
+		{#if imported}
+			<p>Files imported successfully!</p>
+			<p>Here is the list of computers imported:</p>
+			<ul>
+				{#each computers as computer}
+					<li>{computer.name}</li>
+				{/each}
+			</ul>
+		{/if}
+	</div>
+</div>
 
 <style>
 	button {
-		@apply mx-3;
+		@apply mx-3 text-slate-100;
+	}
+	p {
+		@apply text-sm pb-9;
+	}
+	#upload,
+	#import {
+		@apply flex flex-col items-center justify-center my-4;
 	}
 </style>
