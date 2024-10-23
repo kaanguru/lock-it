@@ -24,10 +24,6 @@
 		onUpdate: addComputerAndSetMessage
 	});
 
-	const installationDate = dateProxy(form, 'installationDate', {
-		format: 'date',
-		empty: 'undefined'
-	});
 	const remoteConnectionSoftwares = ['Anydesk', 'Teamviewer', 'RustDesk', 'Parsec', 'other'];
 	let selectedRemoteConnectionSoftware = '';
 	function updateSelectedRemoteConnectionSoftware(selSof: string): void {
@@ -252,35 +248,6 @@
 					<svelte:fragment slot="summary">
 						<iconify-icon icon="lucide:app-window"></iconify-icon>
 						Software
-					</svelte:fragment>
-					<svelte:fragment slot="content">
-						<label>
-							<span>Windows Version</span>
-							<input
-								title="windowsVersion"
-								type="text"
-								autocomplete="off"
-								placeholder="Win 10 pro"
-								class={$errors.windowsVersion ? 'input-error' : undefined}
-								aria-invalid={$errors.windowsVersion ? 'true' : undefined}
-								bind:value={$form.windowsVersion}
-								{...$constraints.windowsVersion}
-							/>
-							{#if $errors.windowsVersion}<span class="error">{$errors.windowsVersion}</span>{/if}
-						</label>
-						<label>
-							<span>installation Date</span>
-							<input
-								name="date"
-								title="installationDate"
-								type="date"
-								class={$errors.installationDate ? 'input-error' : undefined}
-								aria-invalid={$errors.installationDate ? 'true' : undefined}
-								bind:value={$installationDate}
-								{...$constraints.installationDate}
-							/>
-							{#if $errors.installationDate}<span class="error">{$errors.installationDate}</span>{/if}
-						</label>
 					</svelte:fragment>
 				</AccordionItem>
 			</Accordion>

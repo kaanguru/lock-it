@@ -13,7 +13,6 @@ export const _computerSchema = z.object({
 	processor: z.string().optional(),
 	motherBoard: z.string().optional(),
 	windowsVersion: z.string().optional(),
-	installationDate: z.date().optional(),
 	monitor: z.string().optional(),
 	videoAdaptor: z.string().optional(),
 	disk1: z.string().optional(),
@@ -38,7 +37,6 @@ export interface Computer {
 	processor?: string | undefined;
 	motherBoard?: string | undefined;
 	windowsVersion?: string | undefined;
-	installationDate?: Date | undefined;
 	monitor?: string | undefined;
 	videoAdaptor?: string | undefined;
 	disk1?: string | undefined;
@@ -129,9 +127,7 @@ export async function exportComputersData(): Promise<Computer[]> {
 	try {
 		const computers = await db.computers.toArray();
 		return computers.map((computer) => ({
-			...computer,
-			installationDate:
-				computer.installationDate instanceof Date ? computer.installationDate : new Date(computer.installationDate)
+			...computer
 		}));
 	} catch (error) {
 		console.error('Error exporting computers data:', error);
