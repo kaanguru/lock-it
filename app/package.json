@@ -1,6 +1,6 @@
 {
 	"name": "lock-it",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"private": true,
 	"description": " Offline hardware and software asset management tool for IT professionals.",
 	"keywords": [
