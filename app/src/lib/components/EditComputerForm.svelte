@@ -231,12 +231,6 @@
 					</label>
 				</svelte:fragment>
 			</AccordionItem>
-			<AccordionItem>
-				<svelte:fragment slot="summary">
-					<iconify-icon icon="lucide:app-window"></iconify-icon>
-					Software
-				</svelte:fragment>
-			</AccordionItem>
 		</Accordion>
 	</p>
 	<label>
