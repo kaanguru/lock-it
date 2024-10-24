@@ -32,6 +32,7 @@
 		bind:value={plainTextPassword}
 		placeholder="Enter main password"
 		required
+		autocomplete="new-password"
 		on:input={updateValue}
 	/>
 
@@ -48,6 +49,8 @@
 		<input
 			type={visiblePasswordInputArea ? 'text' : 'password'}
 			placeholder="Re-Type your password"
+			required
+			autocomplete="new-password"
 			bind:value={controlTextPassword}
 		/>
 		<button type="button" on:click={toggleEye} class="btn-icon btn-icon-md variant-filled">
