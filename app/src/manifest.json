@@ -1,9 +1,0 @@
-{
-	"name": "Lock for IT",
-	"short_name": "Lock4IT",
-	"theme_color": "#fb8500",
-	"background_color": "#8ecae6",
-	"display": "minimal-ui",
-	"scope": "/app",
-	"start_url": "/"
-}
